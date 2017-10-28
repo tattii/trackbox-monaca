@@ -194,17 +194,16 @@ TrackboxMap.prototype._showCurrentPosition = function(pos) {
 	this._currentPosition = position;
 	
 	if (!this._currentPosMarker) {
+        var image = {
+            url: 'img/position-icon.png',
+            scaledSize: new google.maps.Size(40, 38),
+            anchor: new google.maps.Point(20, 19)
+        };
+
 		this._currentPosMarker = new google.maps.Marker({
 			position: position,
 			map: this.map,
-			icon: {
-				path: google.maps.SymbolPath.CIRCLE,
-				scale: 6,
-				fillOpacity: 1,
-				fillColor: '#1faee3',
-				strokeWeight: 1,
-				strokeColor: '#4591c5'
-			}
+			icon: image
 		});
 
 		this.map.panTo(position);

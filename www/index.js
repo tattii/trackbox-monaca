@@ -1,6 +1,6 @@
 document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
-    console.log(StatusBar);
+
 }
 
 $(function(){
@@ -8,6 +8,10 @@ $(function(){
         menuWidth: 240,
         onOpen: function() {},
         onClose: function() {}
+    });
+    
+    $("#location-button").click(function(){
+        trackboxMap.showCurrentPosition(); 
     });
 });
 
