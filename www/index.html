@@ -32,13 +32,20 @@
     
     <ul id="slide-out" class="side-nav">
         <li><a class="subheader">2017.11.01.am</a></li>
-        <li><a><i class="material-icons">play_arrow</i>Start tracking</a></li>
+        <li><a id="start-tracking"><i class="material-icons">play_arrow</i>Start tracking</a></li>
         <li><a><i class="material-icons">link</i>Link</a></li>
         <li><div class="divider"></div></li>
         <li><a><i class="material-icons">add_box</i>New track</a></li>
         <li><a><i class="material-icons">storage</i>Log</a></li>
         <li><a><i class="material-icons">settings</i>Settings</a></li>
     </ul>
+    
+    <div id="footer-bar">
+        <div id="footer-time"><span>01:20:40</span></div>
+        <div id="footer-altitude"><span>102</span><br>m</div>
+        <div id="footer-heading"><span>30</span><br>deg</div>
+        <div id="footer-speed"><span>2.1</span><br>m/s</div>
+	</div>
     
     <!--<script type="text/javascript" src="lib/jquery-2.1.1.min.js"></script>-->
 	<script type="text/javascript" src="lib/materialize.min.js"></script>
@@ -49,8 +56,10 @@
 	<script src="js/trackbox-waypoint.js"></script>
 	<script src="js/trackbox-goals.js"></script>
 	<script src="js/trackbox-map.js"></script>
+    <script src="js/trackbox-track.js"></script>
 	<script src="js/map.js"></script>
+    <script src="js/tracking.js"></script>
 
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5tPBVnaUVQt8Uf-RUMhJGLLnIlXtoLkQ&callback=onMapsApiLoaded"></script
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5tPBVnaUVQt8Uf-RUMhJGLLnIlXtoLkQ&callback=onMapsApiLoaded"></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-var map, trackboxMap;
+var map, trackboxMap, tracking;
 
 function onMapsApiLoaded() {
     map = new google.maps.Map(document.getElementById('map'), {
@@ -30,6 +30,8 @@ function onMapsApiLoaded() {
     trackboxMap.addTo(map);
     var trackboxGoals = new TrackboxGoals(map, trackboxMap);
     trackboxMap._goals = trackboxGoals;
+    
+    tracking = new Tracking();
 }
 
 

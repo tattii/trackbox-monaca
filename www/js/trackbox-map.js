@@ -166,22 +166,22 @@ TrackboxMap.prototype._toggle = function() {
 
 TrackboxMap.prototype.showCurrentPosition = function() {
 	if (this._currentPosition){
-		console.log(this);
 		this._showCurrentPosition();
 
 	}else if (!this._watchId){
 		var self = this;
 		this._watchId = navigator.geolocation.watchPosition(
 			function(pos) {
+                console.log(pos);
 				self._showCurrentPosition(pos);
 			},
 			function(err) {
 				alert(err.message);
 			},
 			{
-				enableHighAccuracy: false,
-				timeout: 10000,
-				maximumAge: 0
+				enableHighAccuracy: true,
+				//timeout: 30000,
+				maximumAge: 3000
 			}
 		);
 	}

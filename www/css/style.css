@@ -31,3 +31,30 @@ body {
 .btn-floating.white i { color: #9e9e9e; }
 
 #slide-out { padding-top: 20px; }
+
+#footer-bar {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    background: #fff;
+}
+
+#footer-bar div {
+    display: inline-block;
+    width: 24%;
+    height: 50px;
+    box-sizing: border-box;
+    text-align: center;
+    padding-top: 10px;
+    vertical-align: middle;
+    color: #757575;
+    font-size: 12px;
+    line-height: 12px;
+}
+
+#footer-bar div span {
+    color: #212121;
+    font-size: 20px;
+    line-height: 20px;
+}
