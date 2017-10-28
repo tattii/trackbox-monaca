@@ -6,19 +6,48 @@
     <!--<meta http-equiv="Content-Security-Policy" content="default-src * data: gap: content: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">-->
     <script src="components/loader.js"></script>
     <link rel="stylesheet" href="components/loader.css">
+    <link type="text/css" rel="stylesheet" href="lib/material-icons.css"  media="screen,projection"/>
+	<link type="text/css" rel="stylesheet" href="lib/materialize.min.css"  media="screen,projection"/>
     <link rel="stylesheet" href="css/style.css">
 
 </head>
 <body>
     <div id="map"></div>
     
+    <div id="menu-button">
+		<a data-activates="slide-out" class="btn-floating btn-large waves-effect waves-light light-blue">
+			<svg viewBox="0 0 512 500" style="display: inline-block; color: rgb(255, 255, 255); fill: rgb(255, 255, 255); height: 56px; width: 28px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; line-height: 56px; margin-right: 2px;"><path d="M0.043,245.197c0.6,10.1,7.3,18.6,17,21.5l179.6,54.3l6.6,123.8c0.3,4.9,3.6,9.2,8.3,10.8c1.3,0.5,2.7,0.7,4,0.7 c3.5,0,6.8-1.4,9.2-4.1l63.5-70.3l90,62.3c4,2.8,8.7,4.3,13.6,4.3c11.3,0,21.1-8,23.5-19.2l74.7-380.7c0.9-4.4-0.8-9-4.2-11.8 c-3.5-2.9-8.2-3.6-12.4-1.9l-459,186.8C5.143,225.897-0.557,235.097,0.043,245.197z M226.043,414.097l-4.1-78.1l46,31.8 L226.043,414.097z M391.443,423.597l-163.8-113.4l229.7-222.2L391.443,423.597z M432.143,78.197l-227.1,219.7l-179.4-54.2 L432.143,78.197z"></path></svg>
+		</a>
+	</div>
+	<div id="goal-button">
+		<a class="btn-floating waves-effect waves-light white">
+			<i class="material-icons">location_on</i>
+		</a>
+	</div>
+	<div id="location-button">
+		<a class="btn-floating waves-effect waves-light white">
+			<i class="material-icons">my_location</i>
+		</a>
+	</div>
     
+    <ul id="slide-out" class="side-nav">
+        <li><a href="#!"><i class="material-icons">cloud</i>New track</a></li>
+        <li><a href="#!">Link</a></li>
+        <li><div class="divider"></div></li>
+        <li><a class="subheader">Subheader</a></li>
+        <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+    </ul>
+    
+    <!--<script type="text/javascript" src="lib/jquery-2.1.1.min.js"></script>-->
+	<script type="text/javascript" src="lib/materialize.min.js"></script>
+    <script src="index.js"></script>
+    
+    <!-- map -->
     <script src="lib/markerclusterer.js"></script>
 	<script src="js/trackbox-waypoint.js"></script>
 	<script src="js/trackbox-goals.js"></script>
 	<script src="js/trackbox-map.js"></script>
 	<script src="js/map.js"></script>
-    <script src="index.js"></script>
 
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5tPBVnaUVQt8Uf-RUMhJGLLnIlXtoLkQ&callback=onMapsApiLoaded"></script
 </body>
