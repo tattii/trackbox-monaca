@@ -131,7 +131,7 @@ TrackboxMap.prototype._setOverlayControl = function() {
 	controlUI.style.marginRight = '10px';
 	controlUI.style.padding = '10px';
 	controlUI.style.textAlign = 'center';
-	controlUI.style.color = 'rgb(25,25,25)';
+	controlUI.style.color = '#37474f';
 	controlUI.style.fontSize = '11px';
 	controlUI.style.position = 'relative';
 	controlUI.style.display = 'block';
@@ -139,6 +139,7 @@ TrackboxMap.prototype._setOverlayControl = function() {
 	
 	if (this._retina) controlUI.style.padding = '9px 6px';
 
+    this.controlUI = controlUI;
 	div.appendChild(controlUI);
 
 	var self = this;
@@ -154,9 +155,11 @@ TrackboxMap.prototype._toggle = function() {
 	if (this._show){
 		if (this._waypoint) this._waypoint.showZoomgt(13);
 		this.map.overlayMapTypes.removeAt(0);
+        this.controlUI.style.color = '#b0bec5';
 	}else{
 		if (this._waypoint) this._waypoint.showZoomgt(15);
 		this.map.overlayMapTypes.insertAt(0, this);
+        this.controlUI.style.color = '#37474f';
 	}
 	this._show = !this._show;
 };
