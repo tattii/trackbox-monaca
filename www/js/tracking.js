@@ -41,11 +41,15 @@ Tracking.prototype.stop = function() {
 
 
 Tracking.prototype.positionUpdated = function(pos){
-    console.log(pos);
+    var t = new Date(pos.timestamp);
+    var time_str = pad(t.getUTCHours()) + ":" + pad(t.getUTCMinutes()) + ":" + pad(t.getUTCSeconds());
+    console.log(pos, time_str);
     
     this.track.addTrackPoint(pos);
     
     // accuracy check
+    
+    // ignore 1sec
     
     this.$alt.text(pos.coords.altitude.toFixed(0));
     this.$heading.text(pos.coords.heading.toFixed(0));

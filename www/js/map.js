@@ -5,10 +5,7 @@ function onMapsApiLoaded() {
         mapTypeId: google.maps.MapTypeId.SATELLITE,
         center: new google.maps.LatLng(33.252814, 130.245334),
         zoom: 12,
-        mapTypeControl: false,
-        zoomControl: false,
-        streetViewControl: false,
-        fullscreenControl: false
+        disableDefaultUI: true
     });
 
     var mapdef = {

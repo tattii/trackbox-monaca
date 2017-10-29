@@ -6,7 +6,9 @@
 /** @constructor */
 function TrackboxTrack(map) {
     this.map = map;
+
     this.prevPos;
+    this._startAlt;
     this.trackPoints = [];
 }
 
@@ -15,28 +17,54 @@ TrackboxTrack.prototype.addTrackPoint = function (pos){
     this.trackPoints.push({ pos: position });
     
     if (this.prevPos){
-        this._drawPolyline(this.prevPos, position);
+        this._drawPolyline(this.prevPos, position, pos.coords.altitude);
+    }else{
+        this._startAlt = pos.coords.altitude;
     }
     this.prevPos = position;
 };
 
-TrackboxTrack.prototype._drawPolyline = function (p1, p2){
+TrackboxTrack.prototype._drawPolyline = function (p1, p2, alt){
+    var color = this._fixedGradient(alt - this._startAlt);
+
     var polyline = new google.maps.Polyline({
 		path: [ p1, p2 ],
-		//strokeColor: color,
+		strokeColor: color,
 		strokeWeight: 4,
 		strokeOpacity: 1,
 		map: this.map
 	});
 };
 
+TrackboxTrack.prototype._drawPath = function (){
+	for (var i = 0; i < this.track.length - 1; i++){
+		var color = this._fixedGradient(this.track[i].alt);
+
+		var polyline = new google.maps.Polyline({
+			path: [ this.track[i].pos, this.track[i+1].pos ],
+			strokeColor: color,
+			strokeWeight: 4,
+			strokeOpacity: 1,
+			map: this.map
+		});
+
+		var self = this;
+		google.maps.event.addListener(polyline, 'click', function(e){
+			self.showInfoWindowFromLatLng(e.latLng.lat(), e.latLng.lng());
+		});
+	}
+};
+
+
 TrackboxTrack.prototype._fixedGradient = function(x) {
     var grad = [
-		{ value:0.00, r:0,   g:0,   b:255 },
-		{ value:0.25, r:0,   g:255, b:255 },
-		{ value:0.50, r:0,   g:255, b:0   },
-		{ value:0.75, r:255, g:255, b:0   },
-		{ value:1.00, r:255, g:0,   b:0   }
+    	{ value:0,    r:0,   g:0,   b:255 },
+		{ value:100,  r:0,   g:255, b:255 },
+		{ value:300,  r:0,   g:255, b:0   },
+		{ value:600,  r:255, g:255, b:0   },
+		{ value:900,  r:255, g:0,   b:0   },
+		{ value:1500, r:255, g:0,   b:255 },
+		{ value:2500, r:128, g:0,   b:128 }
 	];
 
 	var pivot;
