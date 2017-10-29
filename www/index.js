@@ -77,8 +77,8 @@ $(function(){
 		return false;
 	});
     function addGoal(){
+        $("#goal-modal").modal("close");
         trackbox.goals.addGoal($("#goal-modal-number").val());
-		$("#goal-modal").modal("close");
     }
 });
 

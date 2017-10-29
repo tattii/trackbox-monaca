@@ -31,6 +31,10 @@ TrackboxTrack.prototype.drawDirection = function (pos){
 		        map: this.map
 	        });
         }
+    }else{
+        if (this._direction){
+            this._direction.setPath([]);
+        }
     }
 };
 

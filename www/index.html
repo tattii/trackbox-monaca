@@ -63,21 +63,18 @@
 		</div>
 	</div>
     
-    <div id="goal-sheet" class="modal bottom-sheet">
-		<div class="modal-content">
-			<h5>Goals</h5>
-			<table id="goal-sheet-table" class="bordered highlight">
-				<thead>
-					<tr>
-						<th>Number</th>
-						<th>Distance</th>
-						<th>Heading</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-				</tbody>
-			</table>
+    <div id="marker-info" class="modal bottom-sheet">
+		<div class="modal-content" style="padding: 10px;">
+			<p id="marker-info-name"></p>
+			<a id="marker-info-href" class="btn-floating waves-effect waves-light blue darken-4 z-depth-0" style="position:absolute; right:15px; bottom:15px;"><i class="material-icons" href="">map</i></a>
+		</div>
+	</div>
+
+	<div id="waypoint-info" class="modal bottom-sheet">
+		<div class="modal-content" style="padding: 10px;">
+			<p id="waypoint-info-name"></p>
+			<a id="waypoint-info-add" class="btn-floating waves-effect waves-light red z-depth-0" style="position:absolute; right:60px; bottom:15px;"><i class="material-icons" href="">location_on</i></a>
+			<a id="waypoint-info-href" class="btn-floating waves-effect waves-light blue darken-4 z-depth-0" style="position:absolute; right:15px; bottom:15px;"><i class="material-icons" href="">map</i></a>
 		</div>
 	</div>
     

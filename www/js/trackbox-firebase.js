@@ -26,21 +26,25 @@ function TrackboxFirebase() {
     this.trackid = this.tracks.push(trackdata).key;
     
     this.trackPoints = this.db.ref("/tracks/" + this.trackid).child("tracks");
+    this.goals = this.db.ref("/tracks/" + this.trackid).child("goals");
     
     console.log("track id: " + this.trackid);
 }
 
 TrackboxFirebase.prototype.addTrackPoint = function(pos) {
+    var heading = (isNaN(pos.coords.heading)) ? "-" : pos.coords.heading;
+    
     this.trackPoints.push([
+        pos.timestamp,
         pos.coords.latitude,
         pos.coords.longitude,
         pos.coords.altitude,
-        pos.timestamp,
         pos.coords.speed,
-        pos.coords.heading
+        heading
     ]);
 };
 
 
-TrackboxFirebase.prototype.addGoal = function() {
+TrackboxFirebase.prototype.addGoal = function(goal) {
+    this.goals.push(goal);
 };

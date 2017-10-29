@@ -18,8 +18,6 @@ function TrackboxGoals(map, trackboxMap) {
 	this._utm.ybase = Math.floor(this._utm.ymax / 100000) * 100000;
 
 	this._goals = {};
-	
-	this._sheet = document.getElementById("goal-sheet-table");
 }
 
 TrackboxGoals.prototype.addGoal = function(x, noshow) {
@@ -91,17 +89,8 @@ TrackboxGoals.prototype._addPoint = function(name, lat, lon, noshow) {
 	});
 	
 	if (!noshow) this._showGoal(pos);
-
-
-    // goal sheet
-	//var row2 = this._sheet.insertRow(-1);
-	//row2.insertCell(-1).innerHTML = name;
-	//row2.insertCell(-1).innerHTML = "...";
-	//row2.insertCell(-1).innerHTML = "...";
-
-	//var self = this;
-	//row2.onclick = function () { self._showGoal(pos); };
     
+    var self = this;
 	marker.addListener('click', function() {
 		self._showMarkerInfo(name);
 	});
@@ -109,11 +98,20 @@ TrackboxGoals.prototype._addPoint = function(name, lat, lon, noshow) {
     
 	this._goals[name] = {
 		pos: pos,
-		marker: marker,
-	//	sheet: row2	
+		marker: marker
 	};
 
 	//this.updatePosition();
+
+    if (trackbox.firebase){
+        trackbox.firebase.addGoal({
+            name: name,
+            lat: lat,
+            lon: lon,
+            coord: "",
+            circle: []
+        });
+    }
 };
 
 
@@ -124,7 +122,7 @@ TrackboxGoals.prototype._showMarkerInfo = function(name) {
 		var lon = goal.pos.lng();
 		$("#marker-info-name").text(name);
 		$("#marker-info-href").attr("href", "http://maps.google.com/maps?q="+ lat +","+ lon);
-		$("#marker-info").openModal();
+		$("#marker-info").modal().modal("open");
 	}
 };
 
