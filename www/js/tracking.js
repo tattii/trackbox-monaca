@@ -50,19 +50,25 @@ Tracking.prototype.positionUpdated = function(pos){
     var time_str = pad(t.getUTCHours()) + ":" + pad(t.getUTCMinutes()) + ":" + pad(t.getUTCSeconds());
     console.log(pos, time_str);
     
-    this.track.addTrackPoint(pos);
-    this.track.drawDirection(pos);
-    
     // accuracy check
-    
     // ignore 1sec
     
-    this.$alt.text(pos.coords.altitude.toFixed(0));
-    this.$heading.text(pos.coords.heading.toFixed(0));
-    this.$speed.text(pos.coords.speed.toFixed(1));
+    // ui
+    if (pos.coords.altitude){
+        this.$alt.text(pos.coords.altitude.toFixed(0));
+        this.$heading.text(pos.coords.heading.toFixed(0));
+        this.$speed.text(pos.coords.speed.toFixed(1));
+    }
     
-    
+    // map
+    this.track.addTrackPoint(pos);
+    this.track.drawDirection(pos);
     trackbox.map._showCurrentPosition(pos);
+    
+    // firebase
+    if (trackbox.firebase){
+        trackbox.firebase.addTrackPoint(pos);
+    }
 };
 
 function pad(n) { return n<10 ? '0'+n : n; }

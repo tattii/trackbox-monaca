@@ -42,6 +42,9 @@ body {
 
 
 #slide-out { padding-top: 20px; }
+.track-nav {
+    display: none;
+}
 
 #footer-bar {
     position: absolute;

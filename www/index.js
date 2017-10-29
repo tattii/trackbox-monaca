@@ -26,7 +26,7 @@ $(function(){
             $sideNav.sideNav('hide');
             
             // stop tracking dialog
-            var result = confirm("航跡を停止します");            
+            var result = confirm("航跡を停止します");
             
             if (result){
                 // stop tracking
@@ -40,6 +40,22 @@ $(function(){
         }
     });
     
+    $("#new-track").click(function(){
+        if (trackbox.firebase){
+            var result = confirm("現在のデータを破棄します");
+            if (result){
+                // delete traking data
+                // reset all
+            }else{
+                return;
+            }
+        }
+        
+        // track title
+        $(".track-nav").show();
+    
+        trackbox.firebase = new TrackboxFirebase();
+    });
     
     
     $("#location-button").click(function(){

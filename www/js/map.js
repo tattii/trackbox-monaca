@@ -34,9 +34,3 @@ function onMapsApiLoaded() {
     
     tracking = new Tracking();
 }
-
-
-
-
-
-

@@ -31,11 +31,11 @@
 	</div>
     
     <ul id="slide-out" class="side-nav">
-        <li><a class="subheader">2017.11.01.am</a></li>
-        <li><a id="start-tracking"><i class="material-icons">play_arrow</i>Start tracking</a></li>
-        <li><a><i class="material-icons">link</i>Link</a></li>
-        <li><div class="divider"></div></li>
-        <li><a><i class="material-icons">add_box</i>New track</a></li>
+        <li class="track-nav"><a class="subheader">2017.11.01.am</a></li>
+        <li class="track-nav"><a id="start-tracking"><i class="material-icons">play_arrow</i>Start tracking</a></li>
+        <li class="track-nav"><a><i class="material-icons">link</i>Link</a></li>
+        <li class="track-nav"><div class="divider"></div></li>
+        <li><a id="new-track"><i class="material-icons">add_box</i>New track</a></li>
         <li><a><i class="material-icons">storage</i>Log</a></li>
         <li><a><i class="material-icons">settings</i>Settings</a></li>
     </ul>
@@ -85,13 +85,15 @@
 	<script type="text/javascript" src="lib/materialize.min.js"></script>
     <script src="index.js"></script>
     
-    <!-- map -->
+    <script src="lib/firebase-4.6.0.js"></script>
     <script src="lib/markerclusterer.js"></script>
     <script src="lib/proj4.js"></script>
+
 	<script src="js/trackbox-waypoint.js"></script>
 	<script src="js/trackbox-goals.js"></script>
 	<script src="js/trackbox-map.js"></script>
     <script src="js/trackbox-track.js"></script>
+    <script src="js/trackbox-firebase.js"></script>
 	<script src="js/map.js"></script>
     <script src="js/tracking.js"></script>
 
