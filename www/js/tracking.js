@@ -46,6 +46,7 @@ Tracking.prototype.positionUpdated = function(pos){
     console.log(pos, time_str);
     
     this.track.addTrackPoint(pos);
+    this.track.drawDirection(pos);
     
     // accuracy check
     

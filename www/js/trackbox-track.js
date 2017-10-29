@@ -9,8 +9,30 @@ function TrackboxTrack(map) {
 
     this.prevPos;
     this._startAlt;
+    this._direction;
     this.trackPoints = [];
 }
+
+TrackboxTrack.prototype.drawDirection = function (pos){
+    var position = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+    var distance = pos.coords.speed * 60 * 5; // 5min
+    var target = google.maps.geometry.spherical.computeOffset(position, distance, pos.coords.heading);
+    
+    if (target){
+        if (this._direction){
+            this._direction.setPath([ position, target ]);
+        
+        }else{
+            this._direction = new google.maps.Polyline({
+		        path: [ position, target ],
+		        strokeColor: "#2979ff",
+		        strokeWeight: 4,
+		        strokeOpacity: 1,
+		        map: this.map
+	        });
+        }
+    }
+};
 
 TrackboxTrack.prototype.addTrackPoint = function (pos){
     var position = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
@@ -49,9 +71,9 @@ TrackboxTrack.prototype._drawPath = function (){
 		});
 
 		var self = this;
-		google.maps.event.addListener(polyline, 'click', function(e){
-			self.showInfoWindowFromLatLng(e.latLng.lat(), e.latLng.lng());
-		});
+		//google.maps.event.addListener(polyline, 'click', function(e){
+		//	self.showInfoWindowFromLatLng(e.latLng.lat(), e.latLng.lng());
+		//});
 	}
 };
 
