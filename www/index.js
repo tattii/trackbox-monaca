@@ -11,10 +11,6 @@ $(function(){
         onClose: function() {}
     });
     
-    $("#location-button").click(function(){
-        trackboxMap.showCurrentPosition(); 
-    });
-    
     $("#start-tracking").click(function(){
         if (!tracking.tracking){
             // start tracking
@@ -43,6 +39,31 @@ $(function(){
             }
         }
     });
+    
+    
+    
+    $("#location-button").click(function(){
+        trackboxMap.showCurrentPosition(); 
+    });
+    
+    $("#goal-modal").modal();
+	$("#goal-button").click(function(){
+		$("#goal-modal-number").val("");
+		$("#goal-modal").modal("open");
+	});
+    
+    $("#goal-modal-add").click(function(){
+        addGoal();
+	});
+	$("#goal-modal-form").submit(function(e){
+		e.preventDefault();
+        addGoal();
+		return false;
+	});
+    function addGoal(){
+        trackbox.goals.addGoal($("#goal-modal-number").val());
+		$("#goal-modal").modal("close");
+    }
 });
 
 

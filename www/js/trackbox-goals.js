@@ -19,12 +19,7 @@ function TrackboxGoals(map, trackboxMap) {
 
 	this._goals = {};
 	
-	this._table = document.getElementById("goal-table-table");
 	this._sheet = document.getElementById("goal-sheet-table");
-
-	if (window.location.hash){
-		this._initGoals(window.location.hash);
-	}
 }
 
 TrackboxGoals.prototype.addGoal = function(x, noshow) {
@@ -88,7 +83,6 @@ TrackboxGoals.prototype._getDigit = function(lat, lon) {
 
 TrackboxGoals.prototype._addPoint = function(name, lat, lon, noshow) {
 	this._goals[name] = true;
-	this._updateHash();
 
 	var pos = new google.maps.LatLng(lat, lon);
 	var marker = new google.maps.Marker({
@@ -98,16 +92,13 @@ TrackboxGoals.prototype._addPoint = function(name, lat, lon, noshow) {
 	
 	if (!noshow) this._showGoal(pos);
 
-	var row1 = this._table.insertRow(-1);
-	row1.insertCell(-1).innerHTML = name;
-	row1.insertCell(-1).innerHTML = "...";
-	row1.insertCell(-1).innerHTML = "...";
 
+    // goal sheet
 	var row2 = this._sheet.insertRow(-1);
 	row2.insertCell(-1).innerHTML = name;
 	row2.insertCell(-1).innerHTML = "...";
 	row2.insertCell(-1).innerHTML = "...";
-	var del = row2.insertCell(-1)
+	var del = row2.insertCell(-1);
 	del.innerHTML = '<i class="material-icons tiny" style="margin:6px;">clear<i>';
 
 	var self = this;
@@ -117,15 +108,14 @@ TrackboxGoals.prototype._addPoint = function(name, lat, lon, noshow) {
 		self._showMarkerInfo(name);
 	});
 
-
+    
 	this._goals[name] = {
 		pos: pos,
 		marker: marker,
-		table: row1,
 		sheet: row2	
 	};
 
-	this.updatePosition();
+	//this.updatePosition();
 };
 
 
@@ -160,9 +150,7 @@ TrackboxGoals.prototype.updatePosition = function(position) {
 			var d = Math.round(distance) + "m";
 			var head = Math.round(heading) + "°";
 
-			goal.table.cells[1].innerHTML = d;
 			goal.sheet.cells[1].innerHTML = d;
-			goal.table.cells[2].innerHTML = head;
 			goal.sheet.cells[2].innerHTML = head;
 		}
 	}else if (this._lastPosition){
@@ -176,7 +164,6 @@ TrackboxGoals.prototype.deleteGoal = function(name) {
 		var goal = this._goals[name];
 
 		goal.marker.setMap(null);
-		this._table.deleteRow(goal.table.sectionRowIndex);
 		this._sheet.deleteRow(goal.sheet.sectionRowIndex);
 
 		delete this._goals[name];
@@ -184,31 +171,4 @@ TrackboxGoals.prototype.deleteGoal = function(name) {
 	}
 };
 
-TrackboxGoals.prototype.reset = function() {
-	for (var key in this._goals){
-		this.deleteGoal(key);
-	}
-};
-
-
-TrackboxGoals.prototype._updateHash = function() {
-	window.location.hash = Object.keys(this._goals).join(",");
-};
-
-TrackboxGoals.prototype._initGoals = function(hash) {
-	var goals = hash.substr(1).split(",");
-	var self = this;
-	this._waypoint._onloadForGoals = function (){
-		
-		if (goals.length > 1){
-			for (var i in goals){
-				self.addGoal(goals[i], true);
-			}
-
-		}else{
-			self.addGoal(goals[0]);
-			self._showMarkerInfo(goals[0]);
-		}
-	};
-};
 

@@ -61,7 +61,7 @@ function initTrackboxGoal() {
         this._name = name;
         this._pos = pos;
         this.map = map;
-        this.setMap(map);
+        //this.setMap(map);
     };
 
     TrackboxGoal.prototype.getPosition = function() {

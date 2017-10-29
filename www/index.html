@@ -47,12 +47,47 @@
         <div id="footer-speed"><span>-</span><br>m/s</div>
 	</div>
     
+	<div id="goal-modal" class="modal">
+		<div id="goal-modal-content" class="modal-content">
+			<form id="goal-modal-form" class="col s8">
+				<div id="goal-modal-row" class="row">
+					<div class="input-field col s12">
+						<input id="goal-modal-number" type="tel" placeholder="302 or 16008000">
+						<label for="goal-number">Goal number or Digit</label>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="modal-footer">
+			<a id="goal-modal-add" class="waves-effect waves-light btn red">add</a>
+		</div>
+	</div>
+    
+    <div id="goal-sheet" class="modal bottom-sheet">
+		<div class="modal-content">
+			<h5>Goals</h5>
+			<table id="goal-sheet-table" class="bordered highlight">
+				<thead>
+					<tr>
+						<th>Number</th>
+						<th>Distance</th>
+						<th>Heading</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+	</div>
+    
     <!--<script type="text/javascript" src="lib/jquery-2.1.1.min.js"></script>-->
 	<script type="text/javascript" src="lib/materialize.min.js"></script>
     <script src="index.js"></script>
     
     <!-- map -->
     <script src="lib/markerclusterer.js"></script>
+    <script src="lib/proj4.js"></script>
 	<script src="js/trackbox-waypoint.js"></script>
 	<script src="js/trackbox-goals.js"></script>
 	<script src="js/trackbox-map.js"></script>

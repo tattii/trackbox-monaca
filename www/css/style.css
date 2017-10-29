@@ -35,6 +35,12 @@ body {
 #goal-button.tracking { bottom:105px; }
 #location-button.tracking { bottom:60px; }
 
+#goal-modal-row { margin-bottom:0; }
+#goal-modal-content { padding-bottom:0; }
+#goal-modal-add { margin-right:10px; margin-bottom:10px; }
+
+
+
 #slide-out { padding-top: 20px; }
 
 #footer-bar {
@@ -58,7 +64,6 @@ body {
     font-size: 12px;
     line-height: 12px;
 }
-
 
 #footer-bar div span {
     color: #212121;
