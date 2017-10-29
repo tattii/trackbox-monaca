@@ -43,7 +43,7 @@ $(function(){
     
     
     $("#location-button").click(function(){
-        trackboxMap.showCurrentPosition(); 
+        trackbox.map.showCurrentPosition(); 
     });
     
     $("#goal-modal").modal();

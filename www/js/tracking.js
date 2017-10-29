@@ -29,6 +29,11 @@ Tracking.prototype.start = function() {
 			}
 		);
 	}
+    
+    if (trackbox.map._watchId){
+        navigator.geolocation.clearWatch(trackbox.map._watchId);
+        trackbox.map._watchId = null;
+    }
 };
 
 Tracking.prototype.stop = function() {

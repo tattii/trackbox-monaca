@@ -179,9 +179,9 @@ TrackboxMap.prototype.showCurrentPosition = function() {
 				alert(err.message);
 			},
 			{
-				enableHighAccuracy: true,
-				//timeout: 30000,
-				maximumAge: 3000
+				enableHighAccuracy: false,
+				timeout: 30000,
+				maximumAge: 0
 			}
 		);
 	}
