@@ -5,10 +5,16 @@
     "framework_version": "3.5",
     "xcode_version": "8",
     "cordova_version": "6.5",
-    "plugin_settings": [],
+    "plugin_settings": {
+        "cordova-plugin-statusbar": {
+            "variables": []
+        }
+    },
     "external_plugins": [
         "cordova-plugin-whitelist@1.3.2",
         "cordova-plugin-splashscreen@4.0.3",
-        "cordova-custom-config@2.0.3"
+        "cordova-custom-config@2.0.3",
+        "cordova-plugin-geolocation@2.4.3",
+        "cordova-plugin-statusbar@2.2.3"
     ]
 }

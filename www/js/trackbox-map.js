@@ -216,7 +216,7 @@ TrackboxMap.prototype._showCurrentPosition = function(pos) {
 	}
 
 	if (this._goals){
-		this._goals.updatePosition(position);
+	//	this._goals.updatePosition(position);
 	}
 };
 

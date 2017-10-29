@@ -57,7 +57,7 @@ Tracking.prototype.positionUpdated = function(pos){
     this.$speed.text(pos.coords.speed.toFixed(1));
     
     
-    trackboxMap._showCurrentPosition(pos);
+    trackbox.map._showCurrentPosition(pos);
 };
 
 function pad(n) { return n<10 ? '0'+n : n; }
