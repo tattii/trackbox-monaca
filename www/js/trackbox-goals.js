@@ -93,15 +93,15 @@ TrackboxGoals.prototype._addPoint = function(name, lat, lon, coord) {
 	this._goals[coord] = {
         name: name,
 		pos: pos,
+        lat: lat,
+        lon: lon,
         coord: coord,
         circle: [],
         goal: goal
 	};
 
-	//this.updatePosition();
-
     if (trackbox.firebase){
-        trackbox.firebase.addGoal({
+        this._goals[coord].id = trackbox.firebase.addGoal({
             name: name,
             lat: lat,
             lon: lon,
@@ -121,10 +121,27 @@ TrackboxGoals.prototype.updateGoal = function (key, name, circle){
         this._goals[key].circle = circle;
         this._goals[key].goal.setCircles(circle);
     }
+    
+    if (trackbox.firebase){
+        var goal = this._goals[key];
+        var data = {
+            name: name,
+            lat: goal.lat,
+            lon: goal.lon,
+            coord: goal.coord,
+            circle: circle
+        };
+        trackbox.firebase.updateGoal(goal.id, data);
+    }
 };
 
 TrackboxGoals.prototype.deleteGoal = function (key) {
     this._goals[key].goal.delete();
+    
+    if (trackbox.firebase){
+        var goal = this._goals[key];
+        trackbox.firebase.deleteGoal(goal.id);
+    }
     this._goals[key] = null;
 };
 
@@ -155,18 +172,6 @@ TrackboxGoals.prototype._addPointMarker = function(name, lat, lon, coord, noshow
 		pos: pos,
 		marker: marker
 	};
-
-	//this.updatePosition();
-
-    if (trackbox.firebase){
-        trackbox.firebase.addGoal({
-            name: name,
-            lat: lat,
-            lon: lon,
-            coord: "",
-            circle: []
-        });
-    }
 };
 
 TrackboxGoals.prototype.showGoalInfo = function(key) {

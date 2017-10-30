@@ -46,5 +46,13 @@ TrackboxFirebase.prototype.addTrackPoint = function(pos) {
 
 
 TrackboxFirebase.prototype.addGoal = function(goal) {
-    this.goals.push(goal);
+    return this.goals.push(goal).key;
+};
+
+TrackboxFirebase.prototype.updateGoal = function(id, goal) {
+    this.goals.child(id).update(goal);
+};
+
+TrackboxFirebase.prototype.deleteGoal = function(id) {
+    this.goals.child(id).set(null);
 };

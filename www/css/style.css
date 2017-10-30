@@ -87,7 +87,7 @@ body {
 .goal-edit-form .row {
     margin: 0;
 }
-.goal-edit-form input[type="text"] {
+#goal-info .goal-edit-form input {
     margin-bottom: 10px;
 }
 .goal-edit-form-footer {

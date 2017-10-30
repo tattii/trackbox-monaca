@@ -16,9 +16,6 @@ function TrackboxWaypoints(url, map) {
 			self._onloadForGoals();
 		}
 		self.showWaypoints();
-        
-        trackbox.goals.addGoal("200");
-        trackbox.goals.showGoalInfo("200");
 	});
 };
 
