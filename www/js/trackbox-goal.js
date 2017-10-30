@@ -94,11 +94,18 @@ TrackboxGoal.prototype._getPosFromLatLng = function(latlng) {
 TrackboxGoal.prototype.setCircles = function (circle){
 	for (var i = 0; i < circle.length; i++){
         var r = parseFloat(circle[i])
-		if (r) this.drawCircle(i, r);
+		this.drawCircle(i, r);
 	}
 };
 
 TrackboxGoal.prototype.drawCircle = function(i, radius) {
+    if (!radius) {
+        if (!this._circles[i]){
+            this._circles[i].setRadius(0);
+        }
+        return;
+    }
+
     if (!this._circles[i]){
 	    this._circles[i] = new google.maps.Circle({
 		    center: this._pos,

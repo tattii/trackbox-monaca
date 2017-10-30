@@ -29,6 +29,10 @@ function TrackboxFirebase() {
     this.goals = this.db.ref("/tracks/" + this.trackid).child("goals");
     
     console.log("track id: " + this.trackid);
+    
+    if (trackbox.goals){
+        trackbox.goals.addGoalsFirebase(this);
+    }
 }
 
 TrackboxFirebase.prototype.addTrackPoint = function(pos) {

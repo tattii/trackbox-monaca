@@ -111,6 +111,21 @@ TrackboxGoals.prototype._addPoint = function(name, lat, lon, coord) {
     }
 };
 
+TrackboxGoals.prototype.addGoalsFirebase = function(firebase) {
+    for (var key in this._goals){
+        var goal = this._goals[key];
+        var data = {
+            name: goal.name,
+            lat: goal.lat,
+            lon: goal.lon,
+            coord: goal.coord,
+            circle: goal.circle
+        };
+
+        this._goals[key].id = firebase.addGoal(data);
+    }
+};
+
 TrackboxGoals.prototype.updateGoal = function (key, name, circle){
     if (name != this._goals[key].name){
         this._goals[key].name = name;

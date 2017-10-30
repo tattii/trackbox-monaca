@@ -57,6 +57,11 @@ $(function(){
         trackbox.firebase = new TrackboxFirebase();
     });
     
+    $("#tracking-link").click(function(){
+        var link = "https://track-box.github.io/realtime/#" + trackbox.firebase.trackid;
+        window.open(link, '_system');  
+    });
+    
     
     $("#location-button").click(function(){
         trackbox.map.showCurrentPosition(); 
