@@ -80,6 +80,22 @@ $(function(){
         $("#goal-modal").modal("close");
         trackbox.goals.addGoal($("#goal-modal-number").val());
     }
+    
+    $("#goal-info-edit").click(function(){
+        $(".goal-edit-form").show();
+    });
+    $("#goal-edit-save").click(function(){
+        var key = $("#coord").val();
+        var name = $("#name").val();
+        $("#goal-info-name").text(name);
+            
+        var circle = [];
+        if ($("#circle1").val()) circle[0] = $("#circle1").val();
+        if ($("#circle2").val()) circle[1] = $("#circle2").val();
+        if ($("#circle3").val()) circle[2] = $("#circle3").val();
+            
+        trackbox.goals.updateGoal(key, name, circle);
+    });
 });
 
 

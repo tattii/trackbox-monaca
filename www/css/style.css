@@ -74,3 +74,28 @@ body {
     line-height: 20px;
 }
 
+#goal-info.modal.bottom-sheet {
+    max-height: 100%;
+}
+.goal-edit-form {
+    display: none;
+    border-top: 1px solid #ccc;
+    margin-top: 24px;
+    padding-top: 10px;
+}
+
+.goal-edit-form .row {
+    margin: 0;
+}
+.goal-edit-form input[type="text"] {
+    margin-bottom: 10px;
+}
+.goal-edit-form-footer {
+    text-align: center;
+}
+.goal-edit-form-footer .btn {
+    margin-top: 10px;
+    width: 90%;
+}
+
+

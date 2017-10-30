@@ -10,17 +10,18 @@ function initTrackboxGoal(){
     TrackboxGoal.prototype = new google.maps.OverlayView();
 
 
-function TrackboxGoal(name, pos, goal, map) {
+function TrackboxGoal(key, name, pos, goal, map) {
 	this._name = name;
+    this._key = key;
 	this._pos = pos;
 	this.data = goal;
 	this.map = map;
 	this.setMap(map);
 
+    this._circles = [];
 	if (goal.circle){
-		this._circles = [];
 		for (var i = 0; i < goal.circle.length; i++){
-			this.drawCircle(goal.circle[i]);
+			this.drawCircle(i, goal.circle[i]);
 		}
 	}
 };
@@ -58,10 +59,9 @@ TrackboxGoal.prototype.onAdd = function() {
 	this._width = width;
 
 	this._div.onclick = function () {
-		window.track.preventInfoWindow();
-		window.trackboxReact.showTrackGoal({ name: self._name, sub: sub, data: self.data, goal: self });
+		trackbox.goals.showGoalInfo(self._key);
 	};
-
+    
 	var panes = this.getPanes();
 	panes.overlayMouseTarget.appendChild(this._div);
 };
@@ -91,19 +91,27 @@ TrackboxGoal.prototype._getPosFromLatLng = function(latlng) {
 	return this.getProjection().fromLatLngToDivPixel(latlng);
 };
 
-TrackboxGoal.prototype.drawCircle = function(radius) {
-	var circle = new google.maps.Circle({
-		center: this._pos,
-		map: this.map,
-		radius: radius,
-		strokeColor: "#ef5350",
-		strokeOpacity: 0.8,
-		strokeWeight: 2,
-		fillColor: "#ffffff",
-		fillOpacity: 0
-	});
+TrackboxGoal.prototype.setCircles = function (circle){
+	for (var i = 0; i < circle.length; i++){
+		this.drawCircle(i, parseFloat(circle[i]));
+	}
+};
 
-	this._circles.push(circle);
+TrackboxGoal.prototype.drawCircle = function(i, radius) {
+    if (!this._circles[i]){
+	    this._circles[i] = new google.maps.Circle({
+		    center: this._pos,
+		    map: this.map,
+	    	radius: radius,
+	    	strokeColor: "#ef5350",
+	    	strokeOpacity: 0.8,
+		    strokeWeight: 2,
+	    	fillColor: "#ffffff",
+    		fillOpacity: 0
+	    });
+    }else{
+        this._circles[i].setRadius(radius);
+    }
 };
 
 TrackboxGoal.prototype.setColor = function(color) {
@@ -113,6 +121,7 @@ TrackboxGoal.prototype.setColor = function(color) {
 
 TrackboxGoal.prototype.setName = function(name) {
 	this._name = name;
+    this.data.name = name;
 	this._redraw();
 };
 

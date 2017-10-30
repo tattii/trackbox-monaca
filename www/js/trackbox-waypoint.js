@@ -16,6 +16,9 @@ function TrackboxWaypoints(url, map) {
 			self._onloadForGoals();
 		}
 		self.showWaypoints();
+        
+        trackbox.goals.addGoal("200");
+        trackbox.goals.showGoalInfo("200");
 	});
 };
 
@@ -96,7 +99,7 @@ function initTrackboxWaypoint() {
             $("#waypoint-info").modal().modal('open');
             
             $("#waypoint-info-add").click(function(){
-			    trackbox.goals.addGoal($(this).attr("name"), true);
+			    trackbox.goals.addGoal($(this).attr("name"));
 			    $("#waypoint-info").modal("close");
 		    });
         };

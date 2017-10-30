@@ -44,7 +44,7 @@ TrackboxGoals.prototype.addGoal = function(x, noshow) {
 		var latlon = this._getDigitLatLon(x);
         var num = Object.keys(this._goals).length + "";
 		this._addPoint(num, latlon.lat, latlon.lon, x);
-        this._showGoalName(num);
+        this._showGoalName(x);
 
 	}else{
 		Materialize.toast("error!", 1000);
@@ -85,13 +85,16 @@ TrackboxGoals.prototype._getDigit = function(lat, lon) {
 };
 
 TrackboxGoals.prototype._addPoint = function(name, lat, lon, coord) {
-    this._goals[name] = true;
+    this._goals[coord] = true;
     
 	var pos = new google.maps.LatLng(lat, lon);
-    var goal = new TrackboxGoal(name, pos, { coord: coord }, this.map);
+    var goal = new TrackboxGoal(coord, name, pos, { coord: coord }, this.map);
     
-	this._goals[name] = {
+	this._goals[coord] = {
+        name: name,
 		pos: pos,
+        coord: coord,
+        circle: [],
         goal: goal
 	};
 
@@ -102,9 +105,22 @@ TrackboxGoals.prototype._addPoint = function(name, lat, lon, coord) {
             name: name,
             lat: lat,
             lon: lon,
-            coord: "",
+            coord: coord,
             circle: []
         });
+    }
+};
+
+TrackboxGoals.prototype.updateGoal = function (key, name, circle){
+    console.log(key, this._goals);
+    if (name){
+        this._goals[key].name = name;
+        this._goals[key].goal.setName(name);
+    }
+    
+    if (circle.length > 0){
+        this._goals[key].circle = circle;
+        this._goals[key].goal.setCircles(circle);
     }
 };
 
@@ -146,6 +162,28 @@ TrackboxGoals.prototype._addPointMarker = function(name, lat, lon, coord, noshow
             coord: "",
             circle: []
         });
+    }
+};
+
+TrackboxGoals.prototype.showGoalInfo = function(key) {
+    if (this._goals[key]){
+        var goal = this._goals[key];
+		var lat = goal.pos.lat();
+		var lon = goal.pos.lng();
+
+        // init
+        $("#goal-info-name").text(goal.name);
+		$("#goal-info-href").attr("href", "http://maps.google.com/maps?q="+ lat +","+ lon);
+        $(".goal-edit-form").hide();
+        
+        $("#name").val(goal.name);
+        if (goal.coord) $("#coord").val(goal.coord);
+    
+        $("#circle1").val(goal.circle[0]);
+        $("#circle2").val(goal.circle[1]);
+        $("#circle3").val(goal.circle[2]);
+
+        $("#goal-info").modal().modal("open");
     }
 };
 
