@@ -35,7 +35,7 @@ TrackboxMap.prototype.addTo = function(map) {
 	this._show = true;
 
 	if (this._def.waypoint_url){
-		this._waypoint = new TrackboxWaypoint(this._def.waypoint_url, map);
+		this._waypoint = new TrackboxWaypoints(this._def.waypoint_url, map);
 	}
 };
 

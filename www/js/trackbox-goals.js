@@ -18,6 +18,8 @@ function TrackboxGoals(map, trackboxMap) {
 	this._utm.ybase = Math.floor(this._utm.ymax / 100000) * 100000;
 
 	this._goals = {};
+    
+    TrackboxGoal = initTrackboxGoal();
 }
 
 TrackboxGoals.prototype.addGoal = function(x, noshow) {
@@ -32,14 +34,17 @@ TrackboxGoals.prototype.addGoal = function(x, noshow) {
 	if (x.length == 3){
 		if (this._waypoint.data.waypoints[x]){
 			var w = this._waypoint.data.waypoints[x];
-			this._addPoint(x, w.lat, w.lon, noshow);
+			this._addPoint(x, w.lat, w.lon, x);
+            this._showGoalName(x);
 
 		}else{
 			Materialize.toast("not found", 1000);
 		}
 	}else if (x.length == 8){
 		var latlon = this._getDigitLatLon(x);
-		this._addPoint(x, latlon.lat, latlon.lon, noshow);
+        var num = Object.keys(this._goals).length + "";
+		this._addPoint(num, latlon.lat, latlon.lon, x);
+        this._showGoalName(num);
 
 	}else{
 		Materialize.toast("error!", 1000);
@@ -79,7 +84,38 @@ TrackboxGoals.prototype._getDigit = function(lat, lon) {
 	return "" + dx + dy;
 };
 
-TrackboxGoals.prototype._addPoint = function(name, lat, lon, noshow) {
+TrackboxGoals.prototype._addPoint = function(name, lat, lon, coord) {
+    this._goals[name] = true;
+    
+	var pos = new google.maps.LatLng(lat, lon);
+    var goal = new TrackboxGoal(name, pos, { coord: coord }, this.map);
+    
+	this._goals[name] = {
+		pos: pos,
+        goal: goal
+	};
+
+	//this.updatePosition();
+
+    if (trackbox.firebase){
+        trackbox.firebase.addGoal({
+            name: name,
+            lat: lat,
+            lon: lon,
+            coord: "",
+            circle: []
+        });
+    }
+};
+
+TrackboxGoals.prototype._showGoalName = function(name) {
+    if (this._goals[name]){
+		this.map.setZoom(14);
+		this.map.panTo(this._goals[name].pos);
+	}
+};
+
+TrackboxGoals.prototype._addPointMarker = function(name, lat, lon, coord, noshow) {
 	this._goals[name] = true;
 
 	var pos = new google.maps.LatLng(lat, lon);
@@ -87,14 +123,13 @@ TrackboxGoals.prototype._addPoint = function(name, lat, lon, noshow) {
 		position: pos, 
 		map: this.map
 	});
-	
-	if (!noshow) this._showGoal(pos);
-    
+
     var self = this;
 	marker.addListener('click', function() {
 		self._showMarkerInfo(name);
 	});
 
+    if (!noshow) this._showGoal(pos);
     
 	this._goals[name] = {
 		pos: pos,
