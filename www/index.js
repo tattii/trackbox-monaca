@@ -96,6 +96,12 @@ $(function(){
             
         trackbox.goals.updateGoal(key, name, circle);
     });
+    
+    $("#goal-delete").click(function(){
+        var key = $("#coord").val();
+        trackbox.goals.deleteGoal(key);
+        $("#goal-info").modal("close");
+    });
 });
 
 

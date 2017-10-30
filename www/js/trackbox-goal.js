@@ -93,7 +93,8 @@ TrackboxGoal.prototype._getPosFromLatLng = function(latlng) {
 
 TrackboxGoal.prototype.setCircles = function (circle){
 	for (var i = 0; i < circle.length; i++){
-		this.drawCircle(i, parseFloat(circle[i]));
+        var r = parseFloat(circle[i])
+		if (r) this.drawCircle(i, r);
 	}
 };
 
@@ -133,6 +134,9 @@ TrackboxGoal.prototype.setCenter = function() {
 
 TrackboxGoal.prototype.delete = function() {
 	this.setMap(null);
+    for (var i = 0; i < this._circles.length; i++){
+        if (this._circles[i]) this._circles[i].setMap(null);
+	}
 	this.data = null;
 };
 

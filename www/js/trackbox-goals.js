@@ -112,8 +112,7 @@ TrackboxGoals.prototype._addPoint = function(name, lat, lon, coord) {
 };
 
 TrackboxGoals.prototype.updateGoal = function (key, name, circle){
-    console.log(key, this._goals);
-    if (name){
+    if (name != this._goals[key].name){
         this._goals[key].name = name;
         this._goals[key].goal.setName(name);
     }
@@ -122,6 +121,11 @@ TrackboxGoals.prototype.updateGoal = function (key, name, circle){
         this._goals[key].circle = circle;
         this._goals[key].goal.setCircles(circle);
     }
+};
+
+TrackboxGoals.prototype.deleteGoal = function (key) {
+    this._goals[key].goal.delete();
+    this._goals[key] = null;
 };
 
 TrackboxGoals.prototype._showGoalName = function(name) {
@@ -228,7 +232,7 @@ TrackboxGoals.prototype.updatePosition = function(position) {
 };
 
 
-TrackboxGoals.prototype.deleteGoal = function(name) {
+TrackboxGoals.prototype.deleteGoalMarker = function(name) {
 	if (this._goals[name]){
 		var goal = this._goals[name];
 
