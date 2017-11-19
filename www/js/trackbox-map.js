@@ -313,7 +313,7 @@ function initTrackboxLongTouch() {
             complete: function(){ marker.setMap(null); }
         }).modal("open");
         $("#waypoint-info-add").off("click").click(function(){
-            trackbox.goals._addPoint(digit, pos.lat(), pos.lng(), true);
+            trackbox.goals.addPointLatLng(pos.lat(), pos.lng(), digit, true);
             marker.setMap(null);
             $("#waypoint-info").modal("close");
         });

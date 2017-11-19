@@ -66,6 +66,11 @@ TrackboxGoals.prototype.addGoal = function(x, noshow) {
 	}
 };
 
+TrackboxGoals.prototype.addPointLatLng = function(lat, lon, digit) {   
+    var num = (Object.keys(this._goals).length + 1) + "";
+    this._addPoint(num, lat, lon, (this._utm) ? digit : num);
+};
+
 TrackboxGoals.prototype._getDigitLatLon = function(digit) {
 	var dx = parseInt(digit.substr(0, 4));
 	var dy = parseInt(digit.substr(4, 4));
@@ -127,6 +132,7 @@ TrackboxGoals.prototype._addPoint = function(name, lat, lon, coord) {
         });
     }
 };
+
 
 TrackboxGoals.prototype.addGoalsFirebase = function(firebase) {
     for (var key in this._goals){
