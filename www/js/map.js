@@ -1,4 +1,4 @@
-var map, mapName, trackbox, tracking;
+var map, mapName, trackbox = {}, tracking;
 
 function onMapsApiLoaded() {
     map = new google.maps.Map(document.getElementById('map'), {
@@ -8,26 +8,21 @@ function onMapsApiLoaded() {
         disableDefaultUI: true
     });
 
-    mapName = "saga2017";
-    $("#map-overlay-list li[ref='" + mapName + "']").addClass("active");
-    var trackboxMap = new TrackboxMap(mapdefs[mapName]);
-    trackboxMap.addTo(map);
-    var trackboxGoals = new TrackboxGoals(map, trackboxMap);
+    setTrackboxMap("saga2017");
     
     // init long touch
     TrackboxLongTouch = initTrackboxLongTouch(map);
     var longtouch = new TrackboxLongTouch(map, "map");
     
-    trackbox = {
-        map: trackboxMap,
-        goals: trackboxGoals
-    };
     
     tracking = new Tracking();
 }
 
 function setTrackboxMap(name) {
-    if (tracking.tracking) return alert("トラッキング中は変更できません");
+    if (tracking && tracking.tracking) return alert("トラッキング中は変更できません");
+    if (trackbox.goals && trackbox.goals.hasGoals()){
+        if (!confirm("現在のデータを破棄します")) return;
+    }
     
     // ui .active
     if (name != mapName){
@@ -50,8 +45,10 @@ function setTrackboxMap(name) {
             trackbox.map.addTo(map);
             
             // init view
-            map.setZoom(12);
-            map.setCenter(new google.maps.LatLng(mapdefs[name].center[0], mapdefs[name].center[1]));
+            if (!trackbox.map._tileBounds.contains(map.getCenter())){
+                map.setZoom(12);
+                map.setCenter(new google.maps.LatLng(mapdefs[name].center[0], mapdefs[name].center[1]));
+            }
         }
     }
     

@@ -11,16 +11,31 @@
 /** @constructor */
 function TrackboxGoals(map, trackboxMap) {
 	this.map = map;
-	this._waypoint = trackboxMap._waypoint;
 
-	this._utm = trackboxMap._def.utm;
-	this._utm.xbase = Math.floor(this._utm.xmax / 100000) * 100000;
-	this._utm.ybase = Math.floor(this._utm.ymax / 100000) * 100000;
+    if (trackboxMap._waypoint){
+	    this._waypoint = trackboxMap._waypoint;
+    }
+
+    if (trackboxMap._def){
+	    this._utm = trackboxMap._def.utm;
+	    this._utm.xbase = Math.floor(this._utm.xmax / 100000) * 100000;
+	    this._utm.ybase = Math.floor(this._utm.ymax / 100000) * 100000;
+    }
 
 	this._goals = {};
     
     TrackboxGoal = initTrackboxGoal();
 }
+
+TrackboxGoals.prototype.reset = function(){
+    for (var key in this._goals){
+        this._goals[key].goal.delete();
+    }
+};
+
+TrackboxGoals.prototype.hasGoals = function(){
+    return Object.keys(this._goals).length > 0;
+};
 
 TrackboxGoals.prototype.addGoal = function(x, noshow) {
 	if (!x){
@@ -42,7 +57,7 @@ TrackboxGoals.prototype.addGoal = function(x, noshow) {
 		}
 	}else if (x.length == 8){
 		var latlon = this._getDigitLatLon(x);
-        var num = Object.keys(this._goals).length + "";
+        var num = (Object.keys(this._goals).length + 1) + "";
 		this._addPoint(num, latlon.lat, latlon.lon, x);
         this._showGoalName(x);
 
@@ -70,6 +85,8 @@ TrackboxGoals.prototype._getDigitLatLon = function(digit) {
 };
 
 TrackboxGoals.prototype._getDigit = function(lat, lon) {
+    if (!this._utm) return lat.toFixed(5) + ", " + lon.toFixed(5);
+
 	var utm = "+proj=utm +zone=" + this._utm.zone;
 	var wgs84 = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs";
 

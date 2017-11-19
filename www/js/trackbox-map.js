@@ -37,10 +37,16 @@ TrackboxMap.prototype.addTo = function(map) {
 	if (this._def.waypoint_url){
 		this._waypoint = new TrackboxWaypoints(this._def.waypoint_url, map);
 	}
+    
+    trackbox.goals = new TrackboxGoals(map, this);
 };
 
 TrackboxMap.prototype.remove = function() {
     if (this._waypoint) this._waypoint.remove();
+    
+    trackbox.goals.reset();
+    trackbox.goals = null;
+    
     this.map.overlayMapTypes.removeAt(0);
     this.map.controls[google.maps.ControlPosition.TOP_RIGHT].removeAt(0);
 };
