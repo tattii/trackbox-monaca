@@ -1,4 +1,4 @@
-var map, trackbox, tracking;
+var map, mapName, trackbox, tracking;
 
 function onMapsApiLoaded() {
     map = new google.maps.Map(document.getElementById('map'), {
@@ -8,23 +8,9 @@ function onMapsApiLoaded() {
         disableDefaultUI: true
     });
 
-    var mapdef = {
-        name: "Saga2017",
-        bounds: [[33.07754498441214, 129.95346411545185], [33.41060691858563, 130.49726791761674]],
-        center: [33.252814, 130.245334],
-        zoom: { min: 5, max: 15 },
-        utm: {
-            zone: 52,
-            xmin: 588987,
-            xmax: 639232,
-            ymin: 3660873,
-            ymax: 3697218
-        },
-        url: "https://d128cdxvkxdfwx.cloudfront.net/map/saga2017",
-        waypoint_url: "https://track-box.github.io/trackbox-map/saga2017/waypoint.json"
-    };
-
-    var trackboxMap = new TrackboxMap(mapdef);
+    mapName = "saga2017";
+    $("#map-overlay-list li[ref='" + mapName + "']").addClass("active");
+    var trackboxMap = new TrackboxMap(mapdefs[mapName]);
     trackboxMap.addTo(map);
     var trackboxGoals = new TrackboxGoals(map, trackboxMap);
     
@@ -39,3 +25,83 @@ function onMapsApiLoaded() {
     
     tracking = new Tracking();
 }
+
+function setTrackboxMap(name) {
+    if (tracking.tracking) return alert("トラッキング中は変更できません");
+    
+    // ui .active
+    if (name != mapName){
+        $("#map-overlay-list li.active").removeClass("active");
+        $("#map-overlay-list li[ref='" + name + "']").addClass("active");
+    }
+
+    // remove map
+    if (!name || name != mapName){
+        if (trackbox.map){
+            trackbox.map.remove();
+            trackbox.map = null;
+        }
+    }
+
+    // add map
+    if (name && name != mapName){
+        if (mapdefs[name]){
+            trackbox.map = new TrackboxMap(mapdefs[name]);
+            trackbox.map.addTo(map);
+            
+            // init view
+            map.setZoom(12);
+            map.setCenter(new google.maps.LatLng(mapdefs[name].center[0], mapdefs[name].center[1]));
+        }
+    }
+    
+    toggleNoMapUI(name);
+
+    if (trackbox.firebase && name != mapName){
+        
+    }
+    mapName = name;
+}
+
+function toggleNoMapUI(name){
+    if (!name){
+        
+    }else{
+        
+    }
+}
+
+var mapdefs = {
+    saga2017: {
+        name: "Saga2017",
+        bounds: [[33.07754498441214, 129.95346411545185], [33.41060691858563, 130.49726791761674]],
+        center: [33.252814, 130.245334],
+        zoom: { min: 5, max: 15 },
+        utm: {
+            zone: 52,
+            xmin: 588987,
+            xmax: 639232,
+            ymin: 3660873,
+            ymax: 3697218
+        },
+        url: "https://d128cdxvkxdfwx.cloudfront.net/map/saga2017",
+        waypoint_url: "https://track-box.github.io/trackbox-map/saga2017/waypoint.json"
+    },
+    suzuka2017: {
+        name: "Suzuka2017",
+		bounds: [[34.64856419321580, 136.32401408639996], [35.01820185150547, 136.68759634821404]],
+        center: [34.884255, 136.531435],
+		zoom: { min: 5, max: 15 },
+		utm: {
+			zone: 53,
+			xmin: 621330,
+			xmax: 653978,
+			ymin: 3835355,
+			ymax: 3875869
+		},
+		url: "https://d128cdxvkxdfwx.cloudfront.net/map/suzuka2017",
+		waypoint_url: "https://track-box.github.io/trackbox-map/suzuka2017/waypoint.json"
+	}
+
+};
+

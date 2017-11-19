@@ -30,6 +30,10 @@ TrackboxWaypoints.prototype._loadJSON = function(url, callback) {
 	xhr.send(null);
 };
 
+TrackboxWaypoints.prototype.remove = function() {
+    this._markerCluster.clearMarkers();
+    this._markerCluster = null;
+};
 
 TrackboxWaypoints.prototype.showWaypoints = function() {
 	var self = this;

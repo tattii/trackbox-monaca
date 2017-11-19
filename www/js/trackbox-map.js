@@ -39,6 +39,11 @@ TrackboxMap.prototype.addTo = function(map) {
 	}
 };
 
+TrackboxMap.prototype.remove = function() {
+    if (this._waypoint) this._waypoint.remove();
+    this.map.overlayMapTypes.removeAt(0);
+    this.map.controls[google.maps.ControlPosition.TOP_RIGHT].removeAt(0);
+};
 
 TrackboxMap.prototype.getTile = function(coord, zoom, owner) {
 	var tileBounds = this._tileCoordsToBounds(coord, zoom);

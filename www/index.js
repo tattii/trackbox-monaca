@@ -115,6 +115,14 @@ $(function(){
         $("#map-modal").modal("open");
     });
     
+    $("#map-overlay-list li").click(function(){
+        if ($(this).hasClass("active")) {
+            setTrackboxMap(null);
+
+        }else{
+            setTrackboxMap($(this).attr("ref"));
+        }
+    });
 });
 
 
