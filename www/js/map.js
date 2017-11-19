@@ -28,6 +28,10 @@ function onMapsApiLoaded() {
     trackboxMap.addTo(map);
     var trackboxGoals = new TrackboxGoals(map, trackboxMap);
     
+    // init long touch
+    TrackboxLongTouch = initTrackboxLongTouch(map);
+    var longtouch = new TrackboxLongTouch(map, "map");
+    
     trackbox = {
         map: trackboxMap,
         goals: trackboxGoals

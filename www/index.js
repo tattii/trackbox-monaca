@@ -71,6 +71,7 @@ $(function(){
 	$("#goal-button").click(function(){
 		$("#goal-modal-number").val("");
 		$("#goal-modal").modal("open");
+        $("#goal-modal-number").focus();
 	});
     
     $("#goal-modal-add").click(function(){
@@ -108,7 +109,7 @@ $(function(){
         $("#goal-info").modal("close");
     });
     
-    $("#map-modal").modal().modal("open");
+    $("#map-modal").modal();
     $("#map-setting").click(function(){
         $sideNav.sideNav('hide');
         $("#map-modal").modal("open");
