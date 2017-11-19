@@ -47,8 +47,8 @@ Tracking.prototype.stop = function() {
 
 Tracking.prototype.positionUpdated = function(pos){
     var t = new Date(pos.timestamp);
-    var time_str = pad(t.getUTCHours()) + ":" + pad(t.getUTCMinutes()) + ":" + pad(t.getUTCSeconds());
-    console.log(pos, time_str);
+    var time_str = pad(t.getHours()) + ":" + pad(t.getMinutes()) + ":" + pad(t.getSeconds());
+    console.log(time_str + " " + pos.coords.accuracy);
     
     // accuracy check
     // ignore 1sec

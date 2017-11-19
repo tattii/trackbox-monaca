@@ -257,7 +257,6 @@ TrackboxGoals.prototype.deleteGoalMarker = function(name) {
 		var goal = this._goals[name];
 
 		goal.marker.setMap(null);
-		//this._sheet.deleteRow(goal.sheet.sectionRowIndex);
 
 		delete this._goals[name];
 	}

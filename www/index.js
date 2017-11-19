@@ -107,6 +107,13 @@ $(function(){
         trackbox.goals.deleteGoal(key);
         $("#goal-info").modal("close");
     });
+    
+    $("#map-modal").modal().modal("open");
+    $("#map-setting").click(function(){
+        $sideNav.sideNav('hide');
+        $("#map-modal").modal("open");
+    });
+    
 });
 
 

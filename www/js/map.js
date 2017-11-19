@@ -11,6 +11,7 @@ function onMapsApiLoaded() {
     var mapdef = {
         name: "Saga2017",
         bounds: [[33.07754498441214, 129.95346411545185], [33.41060691858563, 130.49726791761674]],
+        center: [33.252814, 130.245334],
         zoom: { min: 5, max: 15 },
         utm: {
             zone: 52,

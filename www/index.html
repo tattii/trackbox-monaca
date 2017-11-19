@@ -31,13 +31,22 @@
 	</div>
     
     <ul id="slide-out" class="side-nav">
+        <li><div class="user-view">
+            <div class="background">
+                <img src="img/clouds.jpg">
+            </div>
+            <a><img class="circle" src="img/user-icon.png"></a>
+            <a><span class="white-text name">Trackbox</span></a>
+            <a><span class="white-text email">trackbox0@gmail.com</span></a>
+        </div></li>
         <li class="track-nav"><a class="subheader">2017.11.01.am</a></li>
         <li class="track-nav"><a id="start-tracking"><i class="material-icons">play_arrow</i>Start tracking</a></li>
         <li class="track-nav"><a id="tracking-link"><i class="material-icons">link</i>Link</a></li>
         <li class="track-nav"><div class="divider"></div></li>
-        <li><a id="new-track"><i class="material-icons">add_box</i>New track</a></li>
-        <li><a><i class="material-icons">storage</i>Log</a></li>
-        <li><a><i class="material-icons">settings</i>Settings</a></li>
+        <li><a id="new-track"><i class="material-icons">add_box</i>新規フライト</a></li>
+        <li><a id="track-log"><i class="material-icons">storage</i>ログ</a></li>
+        <li><a id="map-setting"><i class="material-icons">layers</i>地図</a></li>
+        <li><a>設定</a></li>
     </ul>
     
     <div id="footer-bar">
@@ -122,6 +131,21 @@
             </div>
 		</div>
 	</div>
+    
+    <div id="map-modal" class="modal bottom-sheet">
+        <a class="waves-effect waves-light btn-flat modal-close"><i class="material-icons">close</i></a>
+        <div id="map-overlay-list">
+            <h4>地図</h4>
+            <ul class="collection">
+                <li class="collection-item active"><i class="material-icons">map</i>Suzuka2017</li>
+                <li class="collection-item"><i class="material-icons">map</i>Saga2017</li>
+            </ul>
+        </div>
+        <div id="map-base-list">
+            <h4>ベース地図</h4>
+            <img src="img/map-type-sample.png" style="width:100%;">
+        </div>
+    </div>
     
     <!--<script type="text/javascript" src="lib/jquery-2.1.1.min.js"></script>-->
 	<script type="text/javascript" src="lib/materialize.min.js"></script>
