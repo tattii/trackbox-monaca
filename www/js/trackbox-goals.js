@@ -31,6 +31,7 @@ TrackboxGoals.prototype.reset = function(){
     for (var key in this._goals){
         this._goals[key].goal.delete();
     }
+    this._goals = {};
 };
 
 TrackboxGoals.prototype.hasGoals = function(){
@@ -43,6 +44,7 @@ TrackboxGoals.prototype.addGoal = function(x, noshow) {
 	}
 
 	if (this._goals[x]){
+        this._showGoalName(x);
 		return;
 	}
 

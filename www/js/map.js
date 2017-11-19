@@ -8,7 +8,9 @@ function onMapsApiLoaded() {
         disableDefaultUI: true
     });
 
-    setTrackboxMap("saga2017");
+    var name = localStorage.getItem("MapName");
+    name = (name) ? name : "saga2017";
+    setTrackboxMap(name);
     
     // init long touch
     TrackboxLongTouch = initTrackboxLongTouch(map);
@@ -19,49 +21,41 @@ function onMapsApiLoaded() {
 }
 
 function setTrackboxMap(name) {
+    if (name == mapName) return;
     if (tracking && tracking.tracking) return alert("トラッキング中は変更できません");
     if (trackbox.goals && trackbox.goals.hasGoals()){
         if (!confirm("現在のデータを破棄します")) return;
     }
     
     // ui .active
-    if (name != mapName){
-        $("#map-overlay-list li.active").removeClass("active");
-        $("#map-overlay-list li[ref='" + name + "']").addClass("active");
-        toggleNoMapUI(name);
-    }
+    $("#map-overlay-list li.active").removeClass("active");
+    $("#map-overlay-list li[ref='" + name + "']").addClass("active");
+    toggleNoMapUI(name);
 
     // remove map
-    if (!name || name != mapName){
-        if (trackbox.map){
-            trackbox.map.remove();
-            trackbox.map = null;
-        }
+    if (trackbox.map){
+        trackbox.map.remove();
+        trackbox.map = null;
     }
 
     // add map
-    if (name && name != mapName){
-        if (mapdefs[name]){
-            trackbox.map = new TrackboxMap(mapdefs[name]);
-            trackbox.map.addTo(map);
+    if (name && mapdefs[name]){
+        trackbox.map = new TrackboxMap(mapdefs[name]);
+        trackbox.map.addTo(map);
             
-            // init view
-            if (!trackbox.map._tileBounds.contains(map.getCenter())){
-                map.setZoom(12);
-                map.setCenter(new google.maps.LatLng(mapdefs[name].center[0], mapdefs[name].center[1]));
-            }
+        // init view
+        if (!trackbox.map._tileBounds.contains(map.getCenter())){
+            map.setZoom(12);
+            map.setCenter(new google.maps.LatLng(mapdefs[name].center[0], mapdefs[name].center[1]));
         }
-    }
-    
-    // no TrackboxMap
-    if (!name){
+        
+    }else{
+        // no TrackboxMap
         trackbox.goals = new TrackboxGoals(map);
     }
 
-    if (trackbox.firebase && name != mapName){
-        
-    }
     mapName = name;
+    localStorage.setItem("MapName", name);
 }
 
 function toggleNoMapUI(name){
