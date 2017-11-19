@@ -12,11 +12,11 @@
 function TrackboxGoals(map, trackboxMap) {
 	this.map = map;
 
-    if (trackboxMap._waypoint){
+    if (trackboxMap && trackboxMap._waypoint){
 	    this._waypoint = trackboxMap._waypoint;
     }
 
-    if (trackboxMap._def){
+    if (trackboxMap && trackboxMap._def){
 	    this._utm = trackboxMap._def.utm;
 	    this._utm.xbase = Math.floor(this._utm.xmax / 100000) * 100000;
 	    this._utm.ybase = Math.floor(this._utm.ymax / 100000) * 100000;

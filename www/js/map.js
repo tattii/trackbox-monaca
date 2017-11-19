@@ -28,6 +28,7 @@ function setTrackboxMap(name) {
     if (name != mapName){
         $("#map-overlay-list li.active").removeClass("active");
         $("#map-overlay-list li[ref='" + name + "']").addClass("active");
+        toggleNoMapUI(name);
     }
 
     // remove map
@@ -52,7 +53,10 @@ function setTrackboxMap(name) {
         }
     }
     
-    toggleNoMapUI(name);
+    // no TrackboxMap
+    if (!name){
+        trackbox.goals = new TrackboxGoals(map);
+    }
 
     if (trackbox.firebase && name != mapName){
         
@@ -62,9 +66,9 @@ function setTrackboxMap(name) {
 
 function toggleNoMapUI(name){
     if (!name){
-        
+        $("#goal-button").hide();
     }else{
-        
+        $("#goal-button").show();
     }
 }
 
