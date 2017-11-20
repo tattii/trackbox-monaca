@@ -29,7 +29,7 @@ function TrackboxGoals(map, trackboxMap) {
 
 TrackboxGoals.prototype.reset = function(){
     for (var key in this._goals){
-        this._goals[key].goal.delete();
+        this._goals[key].goal.remove();
     }
     this._goals = {};
 };
@@ -176,7 +176,7 @@ TrackboxGoals.prototype.updateGoal = function (key, name, circle){
 };
 
 TrackboxGoals.prototype.deleteGoal = function (key) {
-    this._goals[key].goal.delete();
+    this._goals[key].goal.remove();
     
     if (trackbox.firebase){
         var goal = this._goals[key];

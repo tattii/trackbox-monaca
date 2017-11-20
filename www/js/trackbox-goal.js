@@ -139,7 +139,7 @@ TrackboxGoal.prototype.setCenter = function() {
 	this.map.panTo(pos);
 };
 
-TrackboxGoal.prototype.delete = function() {
+TrackboxGoal.prototype.remove = function() {
 	this.setMap(null);
     for (var i = 0; i < this._circles.length; i++){
         if (this._circles[i]) this._circles[i].setMap(null);

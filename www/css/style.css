@@ -99,6 +99,9 @@ body {
     height: 54px;
     width: 54px;
 }
+#slide-out .divider {
+    margin-bottom: 8px;
+}
 
 #footer-bar {
     position: absolute;

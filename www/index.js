@@ -31,27 +31,28 @@ $(function(){
             if (result){
                 // stop tracking
                 tracking.stop();
-            
-                // ui
-                $("#footer-bar").hide();
-                $(".bottom-button").removeClass("tracking");
-                $(this).html('<i class="material-icons">play_arrow</i>Start tracking');
+                stopTracking();
             }
         }
     });
     
+    
     $("#new-track").click(function(){
-        if (trackbox.firebase){
+        if (tracking.tracking){
             var result = confirm("現在のデータを破棄します");
             if (result){
                 // delete traking data
                 // reset all
+                tracking.reset();
+                stopTracking(true);
+                trackbox.firebase = null;
+
             }else{
                 return;
             }
         }
         
-        // track title
+        tracking.new();
         $(".track-nav").show();
     
         trackbox.firebase = new TrackboxFirebase();
@@ -125,4 +126,11 @@ $(function(){
     });
 });
 
-
+function stopTracking(reset){
+    $("#footer-bar").hide();
+    $(".bottom-button").removeClass("tracking");
+    $("#start-tracking").html((reset) ?
+        '<i class="material-icons">play_arrow</i>Start tracking' :
+        '<i class="material-icons">play_circle_outline</i>Resume tracking'
+    );
+}

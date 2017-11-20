@@ -11,6 +11,7 @@ function TrackboxTrack(map) {
     this._startAlt;
     this._direction;
     this.trackPoints = [];
+    this._path = [];
 }
 
 TrackboxTrack.prototype.drawDirection = function (pos){
@@ -77,12 +78,21 @@ TrackboxTrack.prototype._drawPath = function (){
 			strokeOpacity: 1,
 			map: this.map
 		});
+        this._path.push(polyline);
 
 		var self = this;
 		//google.maps.event.addListener(polyline, 'click', function(e){
 		//	self.showInfoWindowFromLatLng(e.latLng.lat(), e.latLng.lng());
 		//});
 	}
+};
+
+TrackboxTrack.prototype.remove = function(){
+    if (this._direction) this._direction.setMap(null);
+    for (var i in this._path){
+        this._path[i].setMap(null);
+    }
+    this._path = null;
 };
 
 

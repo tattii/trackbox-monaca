@@ -1,13 +1,24 @@
 function Tracking() {
     this.tracking = false;
-    
-    this.track = new TrackboxTrack(map);
-    
+
     this.$time = $("#footer-time span");
     this.$alt = $("#footer-altitude span");
     this.$heading = $("#footer-heading span");
     this.$speed = $("#footer-speed span");
 }
+
+Tracking.prototype.new = function() {
+    this.track = new TrackboxTrack(map);
+    this.trackName = this._defaultName();
+    $("#track-name").text(this.trackName);
+};
+
+Tracking.prototype._defaultName = function() {
+    var date = new Date();
+    var date_str = date.getFullYear() + "." + pad(date.getMonth() + 1) + "." + pad(date.getDate());
+    var ampm = (date.getHours() < 12) ? "am" : "pm";
+    return date_str + "." + ampm;
+};
 
 Tracking.prototype.start = function() {
     this.tracking = true;
@@ -42,6 +53,13 @@ Tracking.prototype.stop = function() {
         navigator.geolocation.clearWatch(this._watchId);
         this._watchId = null;
     }
+};
+
+Tracking.prototype.reset = function() {
+    this.stop();
+    trackbox.goals.reset();
+    this.track.remove();
+    this.track = null;
 };
 
 
