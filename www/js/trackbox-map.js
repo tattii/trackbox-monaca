@@ -255,6 +255,7 @@ function initTrackboxLongTouch() {
         div.addEventListener("mouseout", function (e){ self._touchStop(e) });
 
         this.map.addListener('drag', function (e){ self._touchStop(e) });
+        this.map.addListener('zoom_changed', function (e){ self._touchStop(e) });
     };
 
 
@@ -266,7 +267,7 @@ function initTrackboxLongTouch() {
         var self = this;
         document.interval = setInterval(function(){
             self._touch_time += 100;
-            if (self._touch_time >= 500) {
+            if (self._touch_time >= 1000) {
                 var X, Y;
                 if (e.type == "touchstart"){
                     X = e.touches[0].clientX;
