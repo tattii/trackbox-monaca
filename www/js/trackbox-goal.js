@@ -20,9 +20,7 @@ function TrackboxGoal(key, name, pos, goal, map) {
 
     this._circles = [];
 	if (goal.circle){
-		for (var i = 0; i < goal.circle.length; i++){
-			this.drawCircle(i, goal.circle[i]);
-		}
+        this.setCircles(goal.circle);
 	}
 };
 
@@ -70,7 +68,7 @@ TrackboxGoal.prototype.draw = function() {
 	var pos = this._getPosFromLatLng(this._pos);
 	if (this._div){
 		this._div.style.left = (pos.x - this._width/2) + 'px';
-		this._div.style.top = (pos.y - 28) + 'px';
+		this._div.style.top = (pos.y - 26) + 'px';
 	}
 };
 

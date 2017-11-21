@@ -151,6 +151,17 @@ TrackboxGoals.prototype.addGoalsFirebase = function(firebase) {
     }
 };
 
+TrackboxGoals.prototype.addRemoteGoal = function(id, data) {
+    var pos = new google.maps.LatLng(data.lat, data.lon);
+    var goal = new TrackboxGoal(data.coord, data.name, pos, { coord: data.coord, circle: data.circle }, this.map);
+
+    data.goal = goal;
+    data.pos = pos;
+    data.id = id;
+    if (!data.circle) data.circle = [];
+    this._goals[data.coord] = data;
+};
+
 TrackboxGoals.prototype.updateGoal = function (key, name, circle){
     if (name != this._goals[key].name){
         this._goals[key].name = name;

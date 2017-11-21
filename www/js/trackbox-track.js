@@ -55,6 +55,19 @@ TrackboxTrack.prototype.addTrackPoint = function (pos){
     this.prevPos = position;
 };
 
+TrackboxTrack.prototype.addTrackPoint2 = function (position, point){
+    this.trackPoints.push({ pos: position });
+    
+    var alt = point[3];
+    if (this.prevPos){
+        this._drawPolyline(this.prevPos, position, alt);
+    }else{
+        this._startAlt = alt;
+    }
+    this.prevPos = position;
+};
+
+
 TrackboxTrack.prototype._drawPolyline = function (p1, p2, alt){
     var color = this._fixedGradient(alt - this._startAlt);
 

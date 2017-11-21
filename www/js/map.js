@@ -18,6 +18,7 @@ function onMapsApiLoaded() {
     
     
     tracking = new Tracking();
+    tracking.checkLastTrack();
 }
 
 function setTrackboxMap(name) {

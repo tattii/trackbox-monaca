@@ -45,7 +45,6 @@ $(function(){
                 // reset all
                 tracking.reset();
                 stopTracking(true);
-                trackbox.firebase = null;
 
             }else{
                 return;
@@ -54,8 +53,6 @@ $(function(){
         
         tracking.new();
         $(".track-nav").show();
-    
-        trackbox.firebase = new TrackboxFirebase();
     });
     
     $("#tracking-link").click(function(){

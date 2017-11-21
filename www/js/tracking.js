@@ -8,16 +8,36 @@ function Tracking() {
 }
 
 Tracking.prototype.new = function() {
+    var name = this._defaultName();
+    $("#track-name").text(name);
+    
+    trackbox.firebase = new TrackboxFirebase().new(name);
     this.track = new TrackboxTrack(map);
-    this.trackName = this._defaultName();
-    $("#track-name").text(this.trackName);
+    
+    // save to localStorage
+    localStorage.setItem("TrackID", trackbox.firebase.trackid);
+    localStorage.setItem("LastTrackTime", Date.now());
 };
 
+// default 2017.11.01.am
 Tracking.prototype._defaultName = function() {
     var date = new Date();
     var date_str = date.getFullYear() + "." + pad(date.getMonth() + 1) + "." + pad(date.getDate());
     var ampm = (date.getHours() < 12) ? "am" : "pm";
     return date_str + "." + ampm;
+};
+
+Tracking.prototype.checkLastTrack = function() {
+    var lastTime = localStorage.getItem("LastTrackTime");
+    // within 6 hours
+    //if (lastTime && Date.now() - parseInt(lastTime) < 6 * 3600 * 1000){
+        var trackid = "-KxtafUCS8uXfdu0W5_D";
+       // var trackid = localStorage.getItem("TrackID");
+        console.log(trackid);
+
+        this.track = new TrackboxTrack(map);
+        trackbox.firebase = new TrackboxFirebase().init(trackid, this.track);
+    //}
 };
 
 Tracking.prototype.start = function() {
@@ -60,6 +80,7 @@ Tracking.prototype.reset = function() {
     trackbox.goals.reset();
     this.track.remove();
     this.track = null;
+    trackbox.firebase = null;
 };
 
 
