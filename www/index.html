@@ -147,6 +147,50 @@
         </div>
     </div>
     
+    <div id="goal-info-modal" class="modal bottom-sheet">
+        <div id="goal-modal-header">
+            <h4 id="goal-modal-title">251</h4>
+        </div>
+    
+        <div id="goal-modal-actions">
+            <ul>
+                <li><i class="material-icons">navigation</i><br/>navigate</li>
+                <li><i class="material-icons">straighten</i><br/>distance</li>
+                <li><i class="material-icons">streetview</i><br/>streetview</li>
+                <li><i class="material-icons">exit_to_app</i><br/>Google map</li>
+            </ul>
+        </div>
+        
+        <div id="goal-modal-edit">
+            <ul class="collection">
+                <li class="collection-item">
+                    <i class="material-icons">title</i>
+                    <input value="name" id="name" type="text">
+                </li>
+                <li class="collection-item">
+                    <i class="material-icons">place</i>
+                    <input disabled value="coord" id="coord" type="text">
+                </li>
+                <li class="collection-item">
+                    <i class="material-icons">adjust</i>
+                    <div class="row">
+                        <div class="col s4">
+                            <input placeholder="" id="circle1" type="tel">
+                        </div>
+                        <div class="col s4">
+                            <input placeholder="" id="circle2" type="tel">
+                        </div>
+                        <div class="col s4">
+                            <input placeholder="" id="circle3" type="tel">
+                        </div>
+                    </div>
+                </li>
+                <li class="collection-item" id="delete-goal"><i class="material-icons">delete</i>delete</li>
+            </ul>
+        </div>
+    </div>
+
+
     <div id="loader">
         <div class="preloader-wrapper active">
             <div class="spinner-layer spinner-blue-only">

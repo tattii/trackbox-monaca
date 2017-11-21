@@ -39,46 +39,7 @@ body {
 #goal-modal-content { padding-bottom:0; }
 #goal-modal-add { margin-right:10px; margin-bottom:10px; }
 
-#map-modal {
-    background-color: #fff;
-    max-height: 100%;
-}
-#map-modal .modal-close {
-    position: absolute;
-	right: 0;
-	top: 0;
-	padding: 4px 18px;
-	height: 36px;
-	line-height: 36px;
-    color: #757575;
-}
-#map-modal h4 {
-    font-size: 14px;
-    padding: 18px;
-    color: #616161;
-    margin: 0;
-    font-weight: bolder;
-}
 
-#map-overlay-list .collection {
-    border: none;
-    margin: 0;
-    margin-bottom: 16px;
-}
-#map-overlay-list .collection-item {
-    color: #616161;
-    font-size: 13px;
-    line-height: 24px;
-    vertical-align: middle;
-    border: none;
-}
-#map-overlay-list .collection-item .material-icons {
-    height: 24px;
-    line-height: 24px;
-    margin-right: 12px;
-    width: 24px;
-    vertical-align: middle;
-}
 #map-overlay-list .collection-item.active {
     background-color: inherit;
     color: #1976d2;
@@ -172,3 +133,70 @@ body {
 	margin-top: -25px;
 }
 
+
+#goal-info-modal {
+    background-color: #fff;
+    max-height: 66px;
+    overflow: hidden;
+}
+#goal-modal-header {
+    padding: 24px;
+    border-bottom: 1px solid #e0e0e0;
+}
+#goal-info-modal h4 {
+    font-size: 16px; 
+    color: #616161;
+    margin: 0;
+}
+#goal-modal-actions {
+    border-bottom: 1px solid #e0e0e0;
+    padding: 10px 0;
+}
+#goal-modal-actions ul {
+    text-align: center;
+}
+#goal-modal-actions ul li {
+    display: inline-block;
+    width: 80px;
+    text-align: center;
+    color: #616161;
+}
+#goal-info-modal .collection {
+    border: none;
+    margin: 0;
+    margin-bottom: 8px;
+}
+#goal-info-modal .collection-item {
+    color: #616161;
+    font-size: 13px;
+    line-height: 24px;
+    vertical-align: middle;
+    border: none;
+}
+#goal-info-modal .collection-item .material-icons {
+    height: 24px;
+    line-height: 24px;
+    margin-right: 12px;
+    width: 24px;
+    vertical-align: middle;
+}
+#goal-info-modal .collection-item > input {
+    width: calc(100% - 40px);
+    margin: 0;
+}
+#goal-info-modal .collection-item .row {
+    width: calc(100% - 40px);
+    display: inline-block;
+    margin: 0;
+    margin-top: -4px;
+    height: 28px;
+}
+#goal-info-modal .collection-item .row .col {
+    padding: 0 6px;
+}
+#goal-info-modal .collection-item .row input {
+    margin: 0;
+}
+#delete-goal {
+    margin-top: 8px;
+}

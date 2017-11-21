@@ -121,6 +121,20 @@ $(function(){
             setTrackboxMap($(this).attr("ref"));
         }
     });
+    
+    $("#goal-info-modal").modal().modal("open");
+    $(".modal-overlay").hide();
+    $("#goal-modal-header").on("click", function(){
+        if ($("#goal-info-modal").height() > 66){
+            $("#goal-info-modal").velocity({ maxHeight: "66px" });
+        }else{
+            $("#goal-info-modal").velocity({ maxHeight: "100%" });
+        }
+    });
+    var listener = map.addListener("click", function(){
+        $("#goal-info-modal").modal("close");
+        google.maps.event.removeListener(listener);
+    });
 });
 
 function stopTracking(reset){
