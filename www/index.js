@@ -124,12 +124,15 @@ $(function(){
     
     $("#goal-info-modal").modal().modal("open");
     $(".modal-overlay").hide();
-    $("#goal-modal-header").on("click", function(){
+    $("#goal-modal-header").on("click touchstart", function(){
         if ($("#goal-info-modal").height() > 66){
             $("#goal-info-modal").velocity({ maxHeight: "66px" });
         }else{
             $("#goal-info-modal").velocity({ maxHeight: "100%" });
         }
+    });
+    $("#goal-modal-header").hammer().on("swipe", function(){
+        $("#goal-info-modal").velocity({ maxHeight: "100%" });
     });
     var listener = map.addListener("click", function(){
         $("#goal-info-modal").modal("close");
