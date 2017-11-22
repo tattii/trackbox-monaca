@@ -197,13 +197,21 @@ function openGoalInfoModal(name, lat, lon){
     $(".modal-overlay").hide();
     
     // actions
+    var isNavigating = trackbox.map.isNavigating(lat, lon);
+    if (isNavigating){
+        $("#goal-navigation").addClass("active");
+    }else{
+         $("#goal-navigation").removeClass("active");
+    }
     $("#goal-navigation").off("click").click(function(){
-        if (!trackbox.map._navigation){
+        if (!isNavigating){
             trackbox.map.enableNavigation(lat, lon);
             $(this).addClass("active");
+            isNavigating = true;
         }else{
             trackbox.map.disableNavigation();
             $(this).removeClass("active");
+            isNavigating = false;
         }
     });
     $("#link-google-map").off("click").click(function(){

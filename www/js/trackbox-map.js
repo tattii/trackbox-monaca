@@ -243,6 +243,10 @@ TrackboxMap.prototype.enableNavigation = function(lat, lon) {
     }
 };
 
+TrackboxMap.prototype.isNavigating = function(lat, lon) {
+    return this._navigateTo && this._navigateTo.lat() == lat && this._navigateTo.lng() == lon;
+};
+
 TrackboxMap.prototype.disableNavigation = function() {
     this._navigation = false;
     this._removeNavigation();
@@ -263,12 +267,35 @@ TrackboxMap.prototype._updateNavigation = function(pos) {
         this._navigatePolyline.setPath([ pos, this._navigateTo ]);
     }
     
-    this._calculateDirection(pos, this._navigateTo);
+    var direction = this._calculateDirection(pos, this._navigateTo);
+    this._drawDirectionLabel(pos, direction);
 };
 
 TrackboxMap.prototype._removeNavigation = function() {
     this._navigatePolyline.setMap(null);
     this._navigatePolyline = null;
+    this._directinoLabel.setMap(null);
+    this._directinoLabel = null;
+};
+
+TrackboxMap.prototype._drawDirectionLabel = function(pos, label) {
+    var labelPos = new google.maps.LatLng(
+        (this._navigateTo.lat() + pos.lat()) / 2,
+        (this._navigateTo.lng() + pos.lng()) / 2
+    );
+    
+    if (!this._directinoLabel){
+        this._directinoLabel = new google.maps.Marker({
+            position: labelPos,
+            label: label,
+            icon: "img/empty.png",
+            map: this.map
+        });
+
+    }else{
+        this._directinoLabel.setLabel(label);
+        this._directinoLabel.setPosition(labelPos);
+    }
 };
 
 TrackboxMap.prototype._calculateDirection = function(pos, target) {
@@ -293,6 +320,7 @@ TrackboxMap.prototype._calculateDirection = function(pos, target) {
     var head = heading.toFixed(0) + "°";
     
     console.log(dis, head);
+    return dis + " " + head;
 };
 
 
@@ -402,3 +430,4 @@ function initTrackboxLongTouch() {
 
     return TrackboxLongTouch;
 }
+
