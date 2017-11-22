@@ -78,60 +78,7 @@
 			<a id="marker-info-href" class="btn-floating waves-effect waves-light blue darken-4 z-depth-0" style="position:absolute; right:15px; bottom:15px;"><i class="material-icons" href="">map</i></a>
 		</div>
 	</div>
-
-	<div id="waypoint-info" class="modal bottom-sheet">
-		<div class="modal-content" style="padding: 10px;">
-			<p id="waypoint-info-name"></p>
-			<a id="waypoint-info-add" class="btn-floating waves-effect waves-light red z-depth-0" style="position:absolute; right:60px; bottom:15px;"><i class="material-icons" href="">location_on</i></a>
-			<a id="waypoint-info-href" class="btn-floating waves-effect waves-light blue darken-4 z-depth-0" style="position:absolute; right:15px; bottom:15px;"><i class="material-icons" href="">map</i></a>
-		</div>
-	</div>
-    
-    <div id="goal-info" class="modal bottom-sheet">
-    	<div class="modal-content" style="padding: 10px 0; position:relative;">
-			<p id="goal-info-name" style="padding-left: 10px; font-size:16px; line-height: 16px;"></p>
-            <a id="goal-info-edit" class="btn-floating waves-effect waves-light light-blue z-depth-0" style="position:absolute; right:60px; top:15px;"><i class="material-icons" href="">mode_edit</i></a>
-			<a id="goal-info-href" class="btn-floating waves-effect waves-light blue darken-4 z-depth-0" style="position:absolute; right:15px; top:15px;"><i class="material-icons" href="">map</i></a>
-
-            <div class="goal-edit-form">
-                <div class="row">
-                    <form class="col s12">
-
-      <div class="row">
-        <div class="input-field col s12">
-          <input value="name" id="name" type="text">
-          <label for="name">Name</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <input disabled value="coord" id="coord" type="text">
-          <label for="coord">Coord</label>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="input-field col s4">
-          <input placeholder="" id="circle1" type="tel">
-        </div>
-        <div class="input-field col s4">
-          <input placeholder="" id="circle2" type="tel">
-        </div>
-        <div class="input-field col s4">
-          <input placeholder="" id="circle3" type="tel">
-        </div>
-      </div>
-      
-                    </form>
-                </div>
-                <div class="row goal-edit-form-footer">
-                    <a id="goal-edit-save" class="waves-effect waves-light btn light-blue">save</a><br>
-                    <a id="goal-delete" class="waves-effect waves-teal btn-flat">delete</a>
-                </div>
-            </div>
-		</div>
-	</div>
-    
+   
     <div id="map-modal" class="modal bottom-sheet">
         <a class="waves-effect waves-light btn-flat modal-close"><i class="material-icons">close</i></a>
         <div id="map-overlay-list">
@@ -149,19 +96,20 @@
     
     <div id="goal-info-modal" class="modal bottom-sheet">
         <div id="goal-modal-header" class="waves-effect waves-gray">
-            <h4 id="goal-modal-title">251</h4>
+            <h4 id="goal-title">251</h4>
+            <a id="goal-add" class="btn-floating waves-effect waves-light red z-depth-0"><i class="material-icons">location_on</i></a>
         </div>
     
-        <div id="goal-modal-actions">
+        <div id="goal-actions">
             <ul>
-                <li><i class="material-icons">navigation</i><br/>navigate</li>
+                <li class="goal"><i class="material-icons">navigation</i><br/>navigate</li>
                 <li><i class="material-icons">straighten</i><br/>distance</li>
                 <li><i class="material-icons">streetview</i><br/>streetview</li>
-                <li><i class="material-icons">exit_to_app</i><br/>Google map</li>
+                <li id="link-google-map"><i class="material-icons">exit_to_app</i><br/>Google map</li>
             </ul>
         </div>
         
-        <div id="goal-modal-edit">
+        <div id="goal-edit" class="goal">
             <ul class="collection">
                 <li class="collection-item">
                     <i class="material-icons">title</i>

@@ -65,6 +65,8 @@ $(function(){
         trackbox.map.showCurrentPosition(); 
     });
     
+    
+    // goal-modal: add goal from input
     $("#goal-modal").modal();
 	$("#goal-button").click(function(){
 		$("#goal-modal-number").val("");
@@ -85,28 +87,8 @@ $(function(){
         trackbox.goals.addGoal($("#goal-modal-number").val());
     }
     
-    $("#goal-info-edit").click(function(){
-        $(".goal-edit-form").show();
-    });
-    $("#goal-edit-save").click(function(){
-        var key = $("#coord").val();
-        var name = $("#name").val();
-        $("#goal-info-name").text(name);
-            
-        var circle = [];
-        if ($("#circle1").val()) circle[0] = $("#circle1").val();
-        if ($("#circle2").val()) circle[1] = $("#circle2").val();
-        if ($("#circle3").val()) circle[2] = $("#circle3").val();
-            
-        trackbox.goals.updateGoal(key, name, circle);
-    });
     
-    $("#goal-delete").click(function(){
-        var key = $("#coord").val();
-        trackbox.goals.deleteGoal(key);
-        $("#goal-info").modal("close");
-    });
-    
+    // map-modal: map setting
     $("#map-modal").modal();
     $("#map-setting").click(function(){
         $sideNav.sideNav('hide');
@@ -122,21 +104,14 @@ $(function(){
         }
     });
     
-    $("#goal-info-modal").modal().modal("open");
-    $(".modal-overlay").hide();
+    
+    $("#goal-info-modal").modal();
     $("#goal-modal-header").on("click touchstart", function(){
         if ($("#goal-info-modal").height() > 66){
             $("#goal-info-modal").velocity({ maxHeight: "66px" });
         }else{
             $("#goal-info-modal").velocity({ maxHeight: "100%" });
         }
-    });
-    $("#goal-modal-header").hammer().on("swipe", function(){
-        $("#goal-info-modal").velocity({ maxHeight: "100%" });
-    });
-    var listener = map.addListener("click", function(){
-        $("#goal-info-modal").modal("close");
-        google.maps.event.removeListener(listener);
     });
 });
 
@@ -148,3 +123,81 @@ function stopTracking(reset){
         '<i class="material-icons">play_circle_outline</i>Resume tracking'
     );
 }
+
+function openWaypointInfo(name, lat, lon){
+    $("#goal-add").show();
+    $(".goal").hide();
+
+    openGoalInfoModal(name, lat, lon);
+    
+    $("#goal-add").off("click").click(function(){
+        trackbox.goals.addGoal(name);
+        closeGoalInfoModal();
+        //$(this).hide();
+        //$(".goal").show();
+	});
+}
+
+function openGoalInfo(name, lat, lon, coord, circle){
+    $("#goal-add").hide();
+    $(".goal").show();
+
+    $("#name").val(name);
+    $("#coord").val(coord);
+    
+    $("#circle1").val(circle[0]);
+    $("#circle2").val(circle[1]);
+    $("#circle3").val(circle[2]);
+    
+    openGoalInfoModal(name, lat, lon);
+    
+    // change
+    $("#name").off("change").change(function(){
+        var val = $(this).val();
+        if (val){
+            name = val;
+            $("#goal-title").text(name);
+            trackbox.goals.updateGoalName(coord, name);
+        }else{
+            $(this).val(name);
+        }
+    });
+    $("#circle1").off("change").change(function(){ changeGoalCircle($(this).val(), circle, 0, coord); });
+    $("#circle2").off("change").change(function(){ changeGoalCircle($(this).val(), circle, 1, coord); });
+    $("#circle3").off("change").change(function(){ changeGoalCircle($(this).val(), circle, 2, coord); });
+    
+    // delete
+    $("#delete-goal").off("click").click(function(){
+        trackbox.goals.deleteGoal(coord);
+        closeGoalInfoModal();
+    });
+}
+
+function changeGoalCircle(val, circle, ref, coord){
+    circle[ref] = val;
+    trackbox.goals.updateGoalCircle(coord, circle);
+}
+
+var goalInfoModalListener;
+function openGoalInfoModal(name, lat, lon){
+    $("#goal-title").text(name);
+    
+    $("#goal-info-modal").css({ maxHeight: "66px" }).modal("open");
+    $(".modal-overlay").hide();
+    
+    // actions
+    $("#link-google-map").off("click").click(function(){
+        var link = "http://maps.google.com/maps?q="+ lat +","+ lon;
+        window.open(link, '_system');
+    });
+
+    setTimeout(function(){
+        goalInfoModalListener = map.addListener("click", closeGoalInfoModal);
+    }, 200);
+}
+
+function closeGoalInfoModal(){
+    $("#goal-info-modal").modal("close");
+    google.maps.event.removeListener(goalInfoModalListener);
+}
+

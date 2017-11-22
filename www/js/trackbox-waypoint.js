@@ -94,15 +94,7 @@ function initTrackboxWaypoint() {
         var lat = this._pos.lat();
         var lon = this._pos.lng();
         this._div.onclick = function () {
-            $("#waypoint-info-name").text(name);
-            $("#waypoint-info-add").attr("name", name);
-            $("#waypoint-info-href").attr("href", "http://maps.google.com/maps?q="+ lat +","+ lon);
-            $("#waypoint-info").modal().modal('open');
-            
-            $("#waypoint-info-add").click(function(){
-			    trackbox.goals.addGoal($(this).attr("name"));
-			    $("#waypoint-info").modal("close");
-		    });
+            openWaypointInfo(name, lat, lon);
         };
 
         var panes = this.getPanes();

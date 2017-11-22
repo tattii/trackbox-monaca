@@ -30,14 +30,14 @@ Tracking.prototype._defaultName = function() {
 Tracking.prototype.checkLastTrack = function() {
     var lastTime = localStorage.getItem("LastTrackTime");
     // within 6 hours
-    //if (lastTime && Date.now() - parseInt(lastTime) < 6 * 3600 * 1000){
-        var trackid = "-KxtafUCS8uXfdu0W5_D";
-       // var trackid = localStorage.getItem("TrackID");
+    if (lastTime && Date.now() - parseInt(lastTime) < 6 * 3600 * 1000){
+        //var trackid = "-KxtafUCS8uXfdu0W5_D";
+        var trackid = localStorage.getItem("TrackID");
         console.log(trackid);
 
         this.track = new TrackboxTrack(map);
         trackbox.firebase = new TrackboxFirebase().init(trackid, this.track);
-    //}
+    }
 };
 
 Tracking.prototype.start = function() {
@@ -90,8 +90,10 @@ Tracking.prototype.positionUpdated = function(pos){
     console.log(time_str + " " + pos.coords.accuracy);
     
     // accuracy check
-    // ignore 1sec
-    
+    if (pos.coords.accuracy > 100){
+        return;
+    }
+
     // ui
     if (pos.coords.altitude){
         this.$alt.text(pos.coords.altitude.toFixed(0));

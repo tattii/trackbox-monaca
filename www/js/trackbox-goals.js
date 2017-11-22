@@ -162,29 +162,35 @@ TrackboxGoals.prototype.addRemoteGoal = function(id, data) {
     this._goals[data.coord] = data;
 };
 
-TrackboxGoals.prototype.updateGoal = function (key, name, circle){
-    if (name != this._goals[key].name){
-        this._goals[key].name = name;
-        this._goals[key].goal.setName(name);
-    }
-    
-    if (circle.length > 0){
-        this._goals[key].circle = circle;
-        this._goals[key].goal.setCircles(circle);
-    }
-    
+TrackboxGoals.prototype.updateGoalFirebase = function (key){    
     if (trackbox.firebase){
         var goal = this._goals[key];
         var data = {
-            name: name,
+            name: goal.name,
             lat: goal.lat,
             lon: goal.lon,
             coord: goal.coord,
-            circle: circle
+            circle: goal.circle
         };
         trackbox.firebase.updateGoal(goal.id, data);
     }
 };
+
+TrackboxGoals.prototype.updateGoalName = function (key, name){
+    if (name != this._goals[key].name){
+        this._goals[key].name = name;
+        this._goals[key].goal.setName(name);
+    }
+
+    this.updateGoalFirebase(key);
+};
+
+TrackboxGoals.prototype.updateGoalCircle = function (key, circle){
+    this._goals[key].circle = circle;
+    this._goals[key].goal.setCircles(circle);
+
+    this.updateGoalFirebase(key);
+}
 
 TrackboxGoals.prototype.deleteGoal = function (key) {
     this._goals[key].goal.remove();
@@ -231,19 +237,7 @@ TrackboxGoals.prototype.showGoalInfo = function(key) {
 		var lat = goal.pos.lat();
 		var lon = goal.pos.lng();
 
-        // init
-        $("#goal-info-name").text(goal.name);
-		$("#goal-info-href").attr("href", "http://maps.google.com/maps?q="+ lat +","+ lon);
-        $(".goal-edit-form").hide();
-        
-        $("#name").val(goal.name);
-        if (goal.coord) $("#coord").val(goal.coord);
-    
-        $("#circle1").val(goal.circle[0]);
-        $("#circle2").val(goal.circle[1]);
-        $("#circle3").val(goal.circle[2]);
-
-        $("#goal-info").modal().modal("open");
+        openGoalInfo(goal.name, lat, lon, goal.coord, goal.circle)
     }
 };
 
