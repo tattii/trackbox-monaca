@@ -155,6 +155,11 @@ function openGoalInfo(name, lat, lon, coord, circle){
     $("#circle2").val(circle[1]);
     $("#circle3").val(circle[2]);
     
+    // direction
+    trackbox.map.watchDirection(lat, lon, function(direction){
+        $("#goal-direction").text(direction);
+    });
+    
     openGoalInfoModal(name, lat, lon);
     
     // change

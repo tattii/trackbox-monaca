@@ -251,6 +251,12 @@ body {
 #goal-navigation.active {
     color: #2196f3;
 }
+#goal-direction {
+    position: absolute;
+    right: 20px;
+    top: 24px;
+    color: #616161;
+}
 
 
 #marker-info-name {

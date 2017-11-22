@@ -229,6 +229,24 @@ TrackboxMap.prototype._showCurrentPosition = function(pos) {
     if (this._navigation){
         this._updateNavigation(this._currentPosition);
     }
+    if (this._directionChanged){
+        this._directionChanged(this._calculateDirection(this._currentPosition, this._directTo));
+    }
+};
+
+TrackboxMap.prototype.watchDirection = function(lat, lon, callback) {
+    this._directTo = new google.maps.LatLng(lat, lon);
+    this._directionChanged = callback;
+    
+    if (this._currentPosition){
+        callback(this._calculateDirection(this._currentPosition, this._directTo));
+    }else{
+        callback("");
+    }
+};
+
+TrackboxMap.prototype.clearWatchDirection = function(){
+    this._directionChanged = null;
 };
 
 TrackboxMap.prototype.enableNavigation = function(lat, lon) {
