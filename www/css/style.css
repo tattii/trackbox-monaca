@@ -248,3 +248,16 @@ body {
     right: 12px;
     top: 13px;
 }
+
+
+#marker-info-name {
+    font-size: 14px;
+    line-height: 14px;
+    color: #616161;
+    padding-left: 12px;
+}
+#marker-add {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}

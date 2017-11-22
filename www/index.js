@@ -118,7 +118,7 @@ $(function(){
         return false;
     });
     
-    //$("#marker-info").modal().modal("open");
+    $("#marker-info").modal();
 });
 
 function stopTracking(reset){
@@ -140,8 +140,6 @@ function openWaypointInfo(name, lat, lon){
         e.preventDefault();
         trackbox.goals.addGoal(name, true);
         closeGoalInfoModal();
-        //$(this).hide();
-        //$(".goal").show();
         return false;
 	});
 }
@@ -192,7 +190,6 @@ function changeGoalCircle(val, circle, ref, coord){
 var goalInfoModalListener;
 function openGoalInfoModal(name, lat, lon){
     if (goalInfoModalListener) google.maps.event.removeListener(goalInfoModalListener);
-    console.log(name);
 
     $("#goal-title").text(name);
     
@@ -215,3 +212,33 @@ function closeGoalInfoModal(){
     google.maps.event.removeListener(goalInfoModalListener);
 }
 
+
+
+
+var markerInfoListener;
+function openMarkerInfo(name, onAdd, onClose){
+    if (markerInfoListener) google.maps.event.removeListener(markerInfoListener);
+
+    $("#marker-info-name").text(name);   
+    $("#marker-info").modal("open")
+    $(".modal-overlay").hide();
+    
+    $("#marker-add").off("click touchstart").on("click touchstart", function(e){
+        e.preventDefault();
+        onAdd();
+        closeMarkerInfo(onClose);
+        return false;
+    });
+
+    setTimeout(function(){
+        markerInfoListener = map.addListener("click", function(){
+            closeMarkerInfo(onClose);
+        });
+    }, 500);
+}
+
+function closeMarkerInfo(callback){
+    $("#marker-info").modal("close")
+    google.maps.event.removeListener(markerInfoListener);
+    callback();
+}

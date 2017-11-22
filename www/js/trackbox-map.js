@@ -301,22 +301,35 @@ function initTrackboxLongTouch() {
 
     TrackboxLongTouch.prototype.show = function(x, y) {
         var pos = this.getLatLng(x, y);
-        var marker = new google.maps.Marker({
-            position: pos,
-            map: this.map
-        });
+        if (!this.marker){
+            this.marker = new google.maps.Marker({
+                position: pos,
+                draggable: true,
+                map: this.map
+            });
+            
+            // marker drag
+            this.marker.addListener("dragend", function(e) {
+                pos = e.latLng;
+                digit = trackbox.goals._getDigit(pos.lat(), pos.lng());
+                $("#marker-info-name").text(digit);
+            });
+
+        }else{
+            this.marker.setPosition(pos);
+            this.marker.setMap(this.map);
+        }
 
         var digit = trackbox.goals._getDigit(pos.lat(), pos.lng());
 
-        $("#waypoint-info-name").text(digit);
-        $("#waypoint-info-href").attr("href", "http://maps.google.com/maps?q="+ pos.lat() +","+ pos.lng());
-        $("#waypoint-info").modal({
-            complete: function(){ marker.setMap(null); }
-        }).modal("open");
-        $("#waypoint-info-add").off("click").click(function(){
+        var self = this;
+        openMarkerInfo(digit, function(){
+            // add goal callback
             trackbox.goals.addPointLatLng(pos.lat(), pos.lng(), digit, true);
-            marker.setMap(null);
-            $("#waypoint-info").modal("close");
+
+        }, function(){
+            // close modal callback
+            self.marker.setMap(null);
         });
     };
 
