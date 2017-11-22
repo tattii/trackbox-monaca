@@ -33,6 +33,7 @@ TrackboxTrack.prototype.drawDirection = function (pos){
 		        strokeColor: "#2979ff",
 		        strokeWeight: 4,
 		        strokeOpacity: 1,
+                zIndex: 100,
 		        map: this.map
 	        });
         }
@@ -42,6 +43,7 @@ TrackboxTrack.prototype.drawDirection = function (pos){
         }
     }
 };
+
 
 TrackboxTrack.prototype.addTrackPoint = function (pos){
     var position = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);

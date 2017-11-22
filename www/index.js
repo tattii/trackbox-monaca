@@ -197,6 +197,15 @@ function openGoalInfoModal(name, lat, lon){
     $(".modal-overlay").hide();
     
     // actions
+    $("#goal-navigation").off("click").click(function(){
+        if (!trackbox.map._navigation){
+            trackbox.map.enableNavigation(lat, lon);
+            $(this).addClass("active");
+        }else{
+            trackbox.map.disableNavigation();
+            $(this).removeClass("active");
+        }
+    });
     $("#link-google-map").off("click").click(function(){
         var link = "http://maps.google.com/maps?q="+ lat +","+ lon;
         window.open(link, '_system');

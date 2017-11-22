@@ -47,7 +47,7 @@ TrackboxGoal.prototype.onAdd = function() {
 
 	this._div.innerHTML = 
 		'<div style="width: ' + width + 'px; font-size:12px; text-align:center; line-height:1; background-color: ' + this.data.color +  '; color: #212121; padding: 1px; border: 1px solid #777; box-shadow: 0 1px 4px -1px rgba(0,0,0,.3)">' + show_name + '</div>' +
-	'<svg width="' + width + '" height="14">' +
+	    '<svg width="' + width + '" height="14">' +
 		'<line x1="' + width/2 + '" y1="0" x2="' + width/2 + '" y2="8" stroke="#111" stroke-width="1" />' +
 		'<circle cx="' + width/2 + '" cy="10" r="3" stroke="#e91e63" stroke-width="2" fill="none" />' +
 		'</svg>';
@@ -115,7 +115,8 @@ TrackboxGoal.prototype.drawCircle = function(i, radius) {
 	    	strokeOpacity: 0.8,
 		    strokeWeight: 2,
 	    	fillColor: "#ffffff",
-    		fillOpacity: 0
+    		fillOpacity: 0,
+            zIndex: 10
 	    });
     }else{
         this._circles[i].setRadius(radius);

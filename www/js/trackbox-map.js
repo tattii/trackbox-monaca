@@ -226,6 +226,73 @@ TrackboxMap.prototype._showCurrentPosition = function(pos) {
 		this._currentPosMarker.setPosition(position);
 	}
 
+    if (this._navigation){
+        this._updateNavigation(this._currentPosition);
+    }
+};
+
+TrackboxMap.prototype.enableNavigation = function(lat, lon) {
+    this._navigation = true;
+    this._navigateTo = new google.maps.LatLng(lat, lon);
+
+    if (this._currentPosition){
+        this._updateNavigation(this._currentPosition);
+
+    }else{
+        this.showCurrentPosition();
+    }
+};
+
+TrackboxMap.prototype.disableNavigation = function() {
+    this._navigation = false;
+    this._removeNavigation();
+};
+
+TrackboxMap.prototype._updateNavigation = function(pos) {
+    if (!this._navigatePolyline){
+        this._navigatePolyline = new google.maps.Polyline({
+            path: [ pos, this._navigateTo ],
+            strokeColor: "#f06292",
+	        strokeWeight: 2,
+	        strokeOpacity: 0.7,
+            zIndex: 20,
+	        map: this.map
+        });
+
+    }else{
+        this._navigatePolyline.setPath([ pos, this._navigateTo ]);
+    }
+    
+    this._calculateDirection(pos, this._navigateTo);
+};
+
+TrackboxMap.prototype._removeNavigation = function() {
+    this._navigatePolyline.setMap(null);
+    this._navigatePolyline = null;
+};
+
+TrackboxMap.prototype._calculateDirection = function(pos, target) {
+    var distance = google.maps.geometry.spherical.computeDistanceBetween(pos, target);
+    var heading = google.maps.geometry.spherical.computeHeading(pos, target);
+    
+    var dis;
+    if (distance < 100){
+        dis = distance.toFixed(1) + "m";
+
+    }else if (distance < 1000){
+        dis = distance.toFixed(0) + "m";
+
+    }else if (distance < 100000){
+        dis = (distance / 1000).toFixed(1) + "km";
+
+    }else{
+        dis = (distance / 1000).toFixed(0) + "km";
+    }
+    
+    if (heading < 0) heading += 360;
+    var head = heading.toFixed(0) + "°";
+    
+    console.log(dis, head);
 };
 
 

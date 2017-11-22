@@ -248,6 +248,9 @@ body {
     right: 12px;
     top: 13px;
 }
+#goal-navigation.active {
+    color: #2196f3;
+}
 
 
 #marker-info-name {
