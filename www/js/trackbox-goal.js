@@ -56,8 +56,10 @@ TrackboxGoal.prototype.onAdd = function() {
 	var sub = (this.data.coord) ? this.data.coord : '';
 	this._width = width;
 
-	this._div.onclick = function () {
+	this._div.onclick = function (e) {
+        e.preventDefault();
 		trackbox.goals.showGoalInfo(self._key);
+        return false;
 	};
     
 	var panes = this.getPanes();

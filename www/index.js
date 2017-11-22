@@ -7,7 +7,9 @@ $(function(){
     var $sideNav = $("#menu-button a");
     $sideNav.sideNav({
         menuWidth: 240,
-        onOpen: function() {},
+        onOpen: function() {
+            closeGoalInfoModal();
+        },
         onClose: function() {}
     });
     
@@ -106,13 +108,17 @@ $(function(){
     
     
     $("#goal-info-modal").modal();
-    $("#goal-modal-header").on("click touchstart", function(){
+    $("#goal-modal-header").on("click touchstart", function(e){
+        e.preventDefault();
         if ($("#goal-info-modal").height() > 66){
             $("#goal-info-modal").velocity({ maxHeight: "66px" });
         }else{
             $("#goal-info-modal").velocity({ maxHeight: "100%" });
         }
+        return false;
     });
+    
+    //$("#marker-info").modal().modal("open");
 });
 
 function stopTracking(reset){
@@ -130,11 +136,13 @@ function openWaypointInfo(name, lat, lon){
 
     openGoalInfoModal(name, lat, lon);
     
-    $("#goal-add").off("click").click(function(){
-        trackbox.goals.addGoal(name);
+    $("#goal-add").off("click touchstart").on("click touchstart", function(e){
+        e.preventDefault();
+        trackbox.goals.addGoal(name, true);
         closeGoalInfoModal();
         //$(this).hide();
         //$(".goal").show();
+        return false;
 	});
 }
 
@@ -168,8 +176,11 @@ function openGoalInfo(name, lat, lon, coord, circle){
     
     // delete
     $("#delete-goal").off("click").click(function(){
-        trackbox.goals.deleteGoal(coord);
-        closeGoalInfoModal();
+        var result = confirm("削除します");
+        if (result){
+            trackbox.goals.deleteGoal(coord);
+            closeGoalInfoModal();
+        }
     });
 }
 
@@ -180,6 +191,9 @@ function changeGoalCircle(val, circle, ref, coord){
 
 var goalInfoModalListener;
 function openGoalInfoModal(name, lat, lon){
+    if (goalInfoModalListener) google.maps.event.removeListener(goalInfoModalListener);
+    console.log(name);
+
     $("#goal-title").text(name);
     
     $("#goal-info-modal").css({ maxHeight: "66px" }).modal("open");

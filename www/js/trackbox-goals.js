@@ -52,7 +52,7 @@ TrackboxGoals.prototype.addGoal = function(x, noshow) {
 		if (this._waypoint.data.waypoints[x]){
 			var w = this._waypoint.data.waypoints[x];
 			this._addPoint(x, w.lat, w.lon, x);
-            this._showGoalName(x);
+            if (!noshow) this._showGoalName(x);
 
 		}else{
 			Materialize.toast("not found", 1000);
@@ -61,7 +61,7 @@ TrackboxGoals.prototype.addGoal = function(x, noshow) {
 		var latlon = this._getDigitLatLon(x);
         var num = (Object.keys(this._goals).length + 1) + "";
 		this._addPoint(num, latlon.lat, latlon.lon, x);
-        this._showGoalName(x);
+        if (!noshow) this._showGoalName(x);
 
 	}else{
 		Materialize.toast("error!", 1000);
