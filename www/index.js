@@ -204,6 +204,7 @@ function openGoalInfoModal(name, lat, lon){
     // actions
     toggleNavigation(lat, lon);
     measure(lat, lon);
+    streetview(lat, lon, name);
     linkGoogleMap(lat, lon);
 
 
@@ -252,12 +253,30 @@ function measure(lat, lon){
         });
         
         $("#nav-measure .back-button").one("click", function(){
-            trackbox.map.stopMeasure(lat, lon);
+            trackbox.map.stopMeasure();
             
             $("#nav-measure").velocity({ top: -100, display: "none" });
             $("#measure-info").modal("close");
             $("#measure-target").hide();
             $(".bottom-button").removeClass("bottom-modal");
+        });
+    });
+}
+
+function streetview(lat, lon, name){
+    $("#goal-streetview").off("click").click(function(){
+        closeGoalInfoModal();
+
+        $("#nav-streetview").css({ display: "block", top: -100 }).velocity({ top: 0 });
+        $(".bottom-button").hide();
+
+        trackbox.map.startStreetview(lat, lon, name);
+        
+        $("#nav-streetview .back-button").one("click", function(){
+            trackbox.map.stopStreetview();
+            
+            $(".bottom-button").show();
+            $("#nav-streetview").velocity({ top: -100, display: "none" });
         });
     });
 }

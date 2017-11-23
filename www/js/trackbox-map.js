@@ -387,6 +387,28 @@ TrackboxMap.prototype.stopMeasure = function(){
     google.maps.event.removeListener(this._measureListener2);
 };
 
+
+TrackboxMap.prototype.startStreetview = function(lat, lon, name){
+    var pos = new google.maps.LatLng(lat, lon);
+    
+    this._streetviewMarker = new google.maps.Marker({
+        position: pos,
+        title: name,
+        map: this.map
+    });
+    
+    this.panorama = this.map.getStreetView();
+    this.panorama.setPosition(pos);
+    this.panorama.setVisible(true);
+};
+
+TrackboxMap.prototype.stopStreetview = function(){
+    this._streetviewMarker.setMap(null);
+    this.panorama.setVisible(false);
+};
+
+
+
 function initTrackboxLongTouch() {
     var TrackboxLongTouch;
     TrackboxLongTouch.prototype = new google.maps.OverlayView();
