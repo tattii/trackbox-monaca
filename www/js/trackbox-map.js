@@ -337,7 +337,6 @@ TrackboxMap.prototype._calculateDirection = function(pos, target) {
     if (heading < 0) heading += 360;
     var head = heading.toFixed(0) + "°";
     
-    console.log(dis, head);
     return dis + " " + head;
 };
 
@@ -367,19 +366,25 @@ TrackboxMap.prototype.measure = function(lat, lon, onUpdate) {
     onUpdate(direction);
  
     var self = this;
-    this.map.addListener("center_changed", function(){
+    this._measureListener1 = this.map.addListener("center_changed", update);
+    this._measureListener2 = this.map.addListener("drag", update);
+    
+    function update(){
         var center = self.map.getCenter();
         self._measureDashline.setPath([ self._measureTarget, center ]);
 
         var direction = self._calculateDirection(self._measureTarget, center);
         onUpdate(direction);
-    });
+    }
 
 };
 
 TrackboxMap.prototype.stopMeasure = function(){
     this._measureDashline.setMap(null);
     this._measureDashline = null;
+    
+    google.maps.event.removeListener(this._measureListener1);
+    google.maps.event.removeListener(this._measureListener2);
 };
 
 function initTrackboxLongTouch() {
