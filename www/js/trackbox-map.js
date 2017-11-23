@@ -341,6 +341,46 @@ TrackboxMap.prototype._calculateDirection = function(pos, target) {
     return dis + " " + head;
 };
 
+TrackboxMap.prototype.measure = function(lat, lon, onUpdate) {
+    this._measureTarget = new google.maps.LatLng(lat, lon);
+    
+    var lineSymbol = {
+        path: 'M 0,0 0,1',
+        strokeOpacity: 1,
+        strokeColor: '#2979ff',
+        scale: 4
+    };
+    var center = this.map.getCenter();
+    this._measureDashline = new google.maps.Polyline({
+        path: [ this._measureTarget, center ],
+	    strokeOpacity: 0,
+        zIndex: 50,
+        icons: [{
+            icon: lineSymbol,
+            offset: '0',
+            repeat: '10px'
+        }],
+	    map: this.map
+    });
+    
+    var direction = this._calculateDirection(this._measureTarget, center);
+    onUpdate(direction);
+ 
+    var self = this;
+    this.map.addListener("center_changed", function(){
+        var center = self.map.getCenter();
+        self._measureDashline.setPath([ self._measureTarget, center ]);
+
+        var direction = self._calculateDirection(self._measureTarget, center);
+        onUpdate(direction);
+    });
+
+};
+
+TrackboxMap.prototype.stopMeasure = function(){
+    this._measureDashline.setMap(null);
+    this._measureDashline = null;
+};
 
 function initTrackboxLongTouch() {
     var TrackboxLongTouch;

@@ -34,6 +34,8 @@ body {
 
 #goal-button.tracking { bottom:105px; }
 #location-button.tracking { bottom:60px; }
+#goal-button.bottom-modal { bottom:115px; }
+#location-button.bottom-modal { bottom:70px; }
 
 #goal-modal-row { margin-bottom:0; }
 #goal-modal-content { padding-bottom:0; }
@@ -269,4 +271,40 @@ body {
     position: absolute;
     right: 10px;
     top: 10px;
+}
+
+nav.header-nav {
+    position: absolute;
+    top: 0;
+    padding-top: 20px;
+    height: 76px;
+    z-index: 100;
+    background: #039be5;
+    display: none;
+}
+nav.header-nav .back-button {
+    font-size: 30px;
+    padding: 0 8px;
+}
+nav.header-nav .title {
+    font-size: 16px;
+    font-weight: bolder;
+    margin-left: 10px;
+}
+
+#measure-info p {
+    font-size: 14px;
+    margin-left: 10px;
+}
+#measure-target {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 100;
+    margin-top: -10px;
+    margin-left: -10px;
+    display: none;
+}
+#measure-target i {
+    font-size: 20px;
 }

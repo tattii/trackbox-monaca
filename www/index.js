@@ -202,6 +202,22 @@ function openGoalInfoModal(name, lat, lon){
     $(".modal-overlay").hide();
     
     // actions
+    toggleNavigation(lat, lon);
+    measure(lat, lon);
+    linkGoogleMap(lat, lon);
+
+
+    setTimeout(function(){
+        goalInfoModalListener = map.addListener("click", closeGoalInfoModal);
+    }, 200);
+}
+
+function closeGoalInfoModal(){
+    $("#goal-info-modal").modal("close");
+    google.maps.event.removeListener(goalInfoModalListener);
+}
+
+function toggleNavigation(lat, lon){
     var isNavigating = trackbox.map.isNavigating(lat, lon);
     if (isNavigating){
         $("#goal-navigation").addClass("active");
@@ -219,21 +235,39 @@ function openGoalInfoModal(name, lat, lon){
             isNavigating = false;
         }
     });
+}
+
+function measure(lat, lon){
+    $("#goal-measure").off("click").click(function(){
+        closeGoalInfoModal();
+
+        $("#nav-measure").css({ display: "block", top: -100 }).velocity({ top: 0 });
+        $("#measure-info").modal().modal("open");
+        $("#measure-target").show();
+        $(".modal-overlay").hide();
+        $(".bottom-button").addClass("bottom-modal");
+        
+        trackbox.map.measure(lat, lon, function(direction){
+            $("#measure-info p").text(direction);
+        });
+        
+        $("#nav-measure .back-button").one("click", function(){
+            trackbox.map.stopMeasure(lat, lon);
+            
+            $("#nav-measure").velocity({ top: -100, display: "none" });
+            $("#measure-info").modal("close");
+            $("#measure-target").hide();
+            $(".bottom-button").removeClass("bottom-modal");
+        });
+    });
+}
+
+function linkGoogleMap(lat, lon){
     $("#link-google-map").off("click").click(function(){
         var link = "http://maps.google.com/maps?q="+ lat +","+ lon;
         window.open(link, '_system');
     });
-
-    setTimeout(function(){
-        goalInfoModalListener = map.addListener("click", closeGoalInfoModal);
-    }, 200);
 }
-
-function closeGoalInfoModal(){
-    $("#goal-info-modal").modal("close");
-    google.maps.event.removeListener(goalInfoModalListener);
-}
-
 
 
 
